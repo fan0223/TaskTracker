@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+        - name: todo
+          image: fan0223/todo
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://todo-mongo-srv:27017/todo'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-srv
+spec:
+  selector:
+    app: todo
+  ports:
+    - name: todo
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
-import { BadRequestError, validateRequest } from '@fan-tickets/common'
+import { BadRequestError, validateRequest } from '@fan-todo/common'
 import jwt from 'jsonwebtoken'
 
 import { User } from '../models/user'
