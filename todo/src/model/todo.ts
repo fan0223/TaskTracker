@@ -3,12 +3,16 @@ import mongoose from 'mongoose'
 interface TodoAttrs {
   title: string,
   content: string,
-  userId: string
+  userId: string,
+  createAt: string,
+  userEmail: string
 }
 interface TodoDoc extends mongoose.Document {
   title: string,
   content: string,
-  userId: string
+  userId: string,
+  createAt: string,
+  userEmail: string
 }
 interface TodoModel extends mongoose.Model<TodoDoc> {
   build(attrs: TodoAttrs): TodoDoc
@@ -23,7 +27,15 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  createAt: {
+    type: String,
+    deafult: new Date().toLocaleString()
+  },
   userId: {
+    type: String,
+    required: true
+  },
+  userEmail: {
     type: String,
     required: true
   }

@@ -15,7 +15,7 @@ router.post('/api/todo',
     body('content')
       .not()
       .isEmpty()
-      .withMessage('Title is required')
+      .withMessage('Content is required')
   ],
   validateRequest
   , async (req: Request, res: Response) => {
@@ -24,7 +24,9 @@ router.post('/api/todo',
     const todo = Todo.build({
       title,
       content,
-      userId: req.currentUser!.id
+      userId: req.currentUser!.id,
+      userEmail: req.currentUser!.email,
+      createAt: new Date().toLocaleString()
     })
 
     await todo.save()
