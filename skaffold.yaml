@@ -28,6 +28,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: fan0223/group
+      context: group
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: fan0223/client
       context: client
       docker:
