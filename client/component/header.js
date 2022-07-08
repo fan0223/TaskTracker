@@ -22,21 +22,9 @@ export default ({ currentUser }) => {
         <a className="navbar-brand" href="/">
           To Do
         </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="mx-auto"></div>
-          <ul className="navbar-nav">
+        <div className="d-flex justify-content-end">
+          <ul className="nav d-flex align-items-center">
             {links}
             {currentUser && (
               <li key={currentUser.id} className="nav-item ">

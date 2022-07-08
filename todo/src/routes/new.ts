@@ -1,5 +1,5 @@
 import express, { Response, Request } from 'express'
-import { Todo } from '../model/todo'
+import { Todo } from '../models/todo'
 import { requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
 

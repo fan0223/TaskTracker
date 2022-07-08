@@ -1,6 +1,6 @@
 import { NotFoundError } from '@fan-todo/common'
 import express, { Response, Request } from 'express'
-import { Todo } from '../model/todo'
+import { Todo } from '../models/todo'
 const router = express.Router()
 
 router.get('/api/todo/:id', async (req: Request, res: Response) => {

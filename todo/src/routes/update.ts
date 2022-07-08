@@ -1,7 +1,7 @@
 import express, { Response, Request } from 'express'
 import { validateRequest, requireAuth, NotFoundError, NotAuthorizedError } from '@fan-todo/common'
 
-import { Todo } from '../model/todo'
+import { Todo } from '../models/todo'
 import { body } from 'express-validator'
 const router = express.Router()
 

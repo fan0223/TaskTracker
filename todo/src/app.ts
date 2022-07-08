@@ -4,10 +4,11 @@ import mongoose from 'mongoose'
 import cookieSession from 'cookie-session'
 
 import { NotFoundError, errorHandler, currentUser } from '@fan-todo/common'
-import { indexTodoRouter } from './route/index'
-import { newTodoRouter } from './route/new'
-import { showTodoRouter } from './route/show'
-import { updateTodoRouter } from './route/update'
+import { indexTodoRouter } from './routes/index'
+import { newTodoRouter } from './routes/new'
+import { showTodoRouter } from './routes/show'
+import { updateTodoRouter } from './routes/update'
+import { deleteTodoRouter } from './routes/delete'
 
 const app = express()
 app.set('trust proxy', true)
@@ -24,6 +25,7 @@ app.use(indexTodoRouter)
 app.use(newTodoRouter)
 app.use(showTodoRouter)
 app.use(updateTodoRouter)
+app.use(deleteTodoRouter)
 
 app.all('*', async (req, res) => {
   throw new NotFoundError()
