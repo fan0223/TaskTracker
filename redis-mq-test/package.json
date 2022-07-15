@@ -1,0 +1,27 @@
+{
+    "name": "redis-mq-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "init": "ts-node-dev --rs --notify false src/index.ts",
+        "p": "ts-node-dev --rs --notify false src/smq-producer.ts",
+        "c": "ts-node-dev --rs --notify false src/smq-comsumer.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^4.17.13",
+        "@types/node": "^18.0.3",
+        "express": "^4.18.1",
+        "ioredis": "^5.1.0",
+        "mongoose": "^6.4.4",
+        "redis": "^4.2.0",
+        "redis-smq": "^7.0.1",
+        "redis-smq-common": "^1.0.1",
+        "rsmq": "^0.12.4",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^4.7.4"
+    }
+}

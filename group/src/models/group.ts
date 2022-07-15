@@ -2,11 +2,11 @@ import mongoose, { Types } from 'mongoose'
 import { TodoDoc } from './todo'
 
 interface GroupAttrs {
-  todoId: TodoDoc,
-  member: Types.Array<string>,
+  todo: TodoDoc,
+  member: string,
 }
 interface GroupDoc extends mongoose.Document {
-  todoId: TodoDoc,
+  todo: TodoDoc,
   member: Types.Array<string>,
 }
 interface GroupModel extends mongoose.Model<GroupDoc> {
@@ -14,7 +14,7 @@ interface GroupModel extends mongoose.Model<GroupDoc> {
 }
 
 const groupSchema = new mongoose.Schema({
-  todoId: {
+  todo: {
     type: String,
     required: true
   },

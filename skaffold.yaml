@@ -28,8 +28,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: fan0223/group
-      context: group
+    - image: fan0223/comment
+      context: comment
       docker:
         dockerfile: Dockerfile
       sync:

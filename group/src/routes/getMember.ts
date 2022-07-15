@@ -10,7 +10,10 @@ router.get('/api/group/:todoId',
   async (req: Request, res: Response) => {
     const { todoId } = req.params
 
+    const group = await Group.find({ todoId: todoId })
+
+    res.send(group)
   })
 
 
-export { router as addMemberRouter }
+export { router as getMemberRouter }

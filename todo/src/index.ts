@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 import { app } from './app'
+import { redisMQ } from './redisMq'
+import { config } from './config'
+import { todoCreated } from './events/todoCreate-queue'
+
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined')
@@ -9,6 +13,8 @@ const start = async () => {
   }
 
   try {
+    redisMQ.createInstance(config, todoCreated)
+
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000
     })

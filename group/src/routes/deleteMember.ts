@@ -8,12 +8,14 @@ router.delete('/api/group/:todoId',
   requireAuth,
   [
     body('userId')
-      .isArray({ min: 1 })
+      .not()
+      .isEmpty()
       .withMessage('User id is required')
   ],
   validateRequest,
   async (req: Request, res: Response) => {
 
+    res.send('delete ')
   })
 
 
