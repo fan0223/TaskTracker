@@ -1,6 +1,0 @@
-export const preset = 'ts-jest';
-export const coverageDirectory = 'coverage';
-export const collectCoverageFrom = [
-  'src/**/**/*.{ts,tsx,js,jsx}',
-  '!src/**/*.d.ts',
-];

@@ -14,8 +14,8 @@ const TodoEdit = ({ data }) => {
       title,
       content,
     },
-    // onSuccess: () => Router.push(`/todo/${data.id}`),
-    onSuccess: (res) => console.log(res),
+    onSuccess: () => Router.push(`/todo/${data.id}`),
+    // onSuccess: (res) => console.log(res),
   });
 
   const onSubmit = async (event) => {
