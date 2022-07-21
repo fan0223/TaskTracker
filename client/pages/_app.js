@@ -8,7 +8,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     <div>
       <div className="container">
         <Header currentUser={currentUser} />
-        <div className="container px-3 py-3 bg-light bg-opacity-50">
+        <div className="container px-3 py-3 bg-light bg-opacity-50 rounded">
           <Component {...pageProps} />
         </div>
       </div>

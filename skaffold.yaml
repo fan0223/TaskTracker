@@ -36,6 +36,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: fan0223/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: fan0223/client
       context: client
       docker:
