@@ -1,3 +1,7 @@
 export enum Subjects {
-  TodoCreated = 'todoCreated'
+  TodoCreated = 'todoCreated',
+  TodoUpdated = 'todoUpdated',
+  TodoDeleted = 'todoDeleted',
+  CommentCreated = 'commentCreated',
+  CommentDeleted = 'commentDeleted',
 }
