@@ -6,7 +6,7 @@ interface Event {
   subject: Subjects,
   data: any
 }
-export abstract class CustomComsumer<T extends Event> {
+export abstract class CustomConsumer<T extends Event> {
   abstract queueName: T["subject"]
   abstract messageHandler: (msg: Message, cb: ICallback<void>) => void
   protected consumer: Consumer;
