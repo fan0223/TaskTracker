@@ -2,6 +2,7 @@ import express from 'express'
 import 'express-async-errors'
 import mongoose from 'mongoose'
 import cookieSession from 'cookie-session'
+import { indexQueryRouter } from './routes'
 
 import { NotFoundError, errorHandler, currentUser } from '@fan-todo/common'
 
@@ -17,7 +18,7 @@ app.use(cookieSession({
 
 app.use(currentUser)
 
-
+app.use(indexQueryRouter)
 app.all('*', async (req, res) => {
   throw new NotFoundError()
 })

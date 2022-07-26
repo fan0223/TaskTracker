@@ -2,6 +2,7 @@ import express, { Response, Request } from 'express'
 import { Todo } from '../models/todo'
 import { requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
+import { TodoCreatedProducer } from '../events/producer/todoCreatedProducer'
 
 const router = express.Router()
 
@@ -30,6 +31,15 @@ router.post('/api/todo',
     })
 
     await todo.save()
+
+    await new TodoCreatedProducer().produce({
+      id: todo.id,
+      title: todo.title,
+      content: todo.content,
+      userId: todo.userId,
+      userEmail: todo.userEmail,
+      createdAt: todo.createAt
+    })
 
     res.status(201).send(todo)
   })

@@ -1,7 +1,7 @@
 import { Producer, Message } from 'redis-smq'
 import { config } from './config'
 
-const producer = new Producer(config)
+const producer = new Producer()
 
 
 

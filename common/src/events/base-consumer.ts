@@ -14,16 +14,18 @@ export abstract class CustomConsumer<T extends Event> {
   constructor() {
     this.consumer = new Consumer()
   }
-  listen() {
-    this.consumer.consume(
-      this.queueName,
-      this.messageHandler,
-      (err) => {
-        if (err) console.log(err)
-      }
-    )
-    this.consumer.run()
-  }
+
+
+  // listen() {
+  //   this.consumer.consume(
+  //     this.queueName,
+  //     this.messageHandler,
+  //     (err) => {
+  //       if (err) console.log(err)
+  //     }
+  //   )
+  //   this.consumer.run()
+  // }
 }
 
 // class CommentCreatedConsumer extends CustomComsumer<CommentCreatedEvent>{

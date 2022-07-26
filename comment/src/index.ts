@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-// import { redisMQ } from './redisMq'
-// import { config } from './config'
-// import { todoCreated } from './events/todoCreate-queue'
-
+import { redisMQ } from './redisMq'
+import { config } from './config'
+import { todoCreated } from './events/todoCreate-queueManager'
+import { TodoCreatedConsumer } from './events/comsumer/todoCreatedConsumer'
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined')
@@ -13,7 +13,7 @@ const start = async () => {
   }
 
   try {
-    // redisMQ.createInstance(config, todoCreated)
+    redisMQ.createInstance(config, todoCreated)
 
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000
@@ -26,7 +26,7 @@ const start = async () => {
       await collection.deleteMany({})
     }
 
-
+    // new TodoCreatedConsumer().listen()
     console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)

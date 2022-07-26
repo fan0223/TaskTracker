@@ -1,6 +1,6 @@
 import { Subjects } from '@fan-todo/common'
-export const todoCreated = function (err: any, queueManager: any) {
-  const queueName = Subjects.TodoCreated
+export const todoUpdated = function (err: any, queueManager: any) {
+  const queueName = Subjects.TodoUpdated
   if (err) {
     console.log(err)
   } else {
@@ -16,7 +16,7 @@ export const todoCreated = function (err: any, queueManager: any) {
       if (err) {
         console.log(err)
       }
-      console.log('queue created by:', queueName)
+      console.log('queueManager created by:', queueName)
     })
   }
 }

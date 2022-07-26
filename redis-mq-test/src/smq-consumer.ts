@@ -2,7 +2,7 @@ import { config } from './config';
 import { Consumer, Message } from 'redis-smq'
 import { ICallback } from 'redis-smq-common/dist/types';
 
-const consumer = new Consumer(config)
+const consumer = new Consumer()
 const messageHandler = (msg: Message, cb: ICallback<void>) => {
   const payload = msg.getBody()
 
