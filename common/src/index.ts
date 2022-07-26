@@ -18,5 +18,5 @@ export * from './events/todo-created-event'
 export * from './events/todo-deleted-event'
 export * from './events/todo-updated-event'
 
-// export * from './events/base-comsumer'
+export * from './events/base-consumer'
 export * from './events/base-producer'
