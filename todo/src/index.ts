@@ -1,9 +1,7 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-import { redisMQ } from './redisMq'
-import { config } from './config'
-import { todoCreated } from './events/todoCreate-queueManager'
-import { todoUpdated } from './events/todoUpdate-queueManager'
+import { Config, redisMQ, todoCreatedQueueManager } from '@fan-todo/common'
+
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -14,7 +12,7 @@ const start = async () => {
   }
 
   try {
-    redisMQ.createInstance(config, todoCreated)
+    redisMQ.createInstance(Config, todoCreatedQueueManager)
     // redisMQ.createInstance(config, todoUpdated)
 
     await mongoose.connect(process.env.MONGO_URI, {

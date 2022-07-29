@@ -1,9 +1,12 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-import { redisMQ } from './redisMq'
-import { config } from './config'
-import { todoCreated } from './events/todoCreate-queueManager'
+
 import { TodoCreatedConsumer } from './events/comsumer/todoCreatedConsumer'
+
+import { Consumer, Message } from 'redis-smq'
+import { ICallback } from 'redis-smq-common/dist/types';
+import { Subjects, redisMQ, Config, todoCreatedQueueManager } from '@fan-todo/common'
+
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined')
@@ -13,7 +16,8 @@ const start = async () => {
   }
 
   try {
-    redisMQ.createInstance(config, todoCreated)
+    // redis-smq queueManager instance
+    redisMQ.createInstance(Config, todoCreatedQueueManager)
 
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000
@@ -26,7 +30,23 @@ const start = async () => {
       await collection.deleteMany({})
     }
 
-    // new TodoCreatedConsumer().listen()
+    new TodoCreatedConsumer().listen()
+    // const consumer = new Consumer(config)
+    // const messageHandler = (msg: Message, cb: ICallback<void>) => {
+    //   const payload = msg.getBody()
+
+    //   console.log('Message payload ', payload)
+    //   cb()
+    // }
+
+    // consumer.consume(
+    //   Subjects.TodoCreated,
+    //   messageHandler,
+    //   (err) => {
+    //     if (err) console.log(err)
+    //   }
+    // )
+    // consumer.run()
     console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)
