@@ -30,6 +30,7 @@ export abstract class CustomProducer<T extends Event> {
         resolve()
 
       })
+      this.producer.run()
     })
   }
 }
