@@ -26,7 +26,7 @@ export abstract class CustomProducer<T extends Event> {
           console.log(err)
           reject()
         }
-        console.log(this.message.getBody())
+        console.log("emit ", this.message.getBody(), `to ${this.queueName}`)
         resolve()
 
       })
