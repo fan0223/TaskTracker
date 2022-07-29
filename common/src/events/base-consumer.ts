@@ -2,6 +2,7 @@ import { Consumer, Message } from 'redis-smq'
 import { Subjects } from './subjects';
 import { ICallback } from 'redis-smq-common/dist/types';
 import { TodoCreatedEvent } from './todo-created-event'
+import { Config } from './config'
 
 interface Event {
   subject: Subjects,
@@ -13,7 +14,7 @@ export abstract class CustomConsumer<T extends Event> {
   protected consumer: Consumer;
 
   constructor() {
-    this.consumer = new Consumer()
+    this.consumer = new Consumer(Config)
   }
 
 
