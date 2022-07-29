@@ -1,18 +1,18 @@
 import { Subjects } from './subjects';
 import { Producer, Message } from 'redis-smq'
-
+import { Config } from './config'
 interface Event {
   subject: Subjects,
   data: any
 }
 
 export abstract class CustomProducer<T extends Event> {
-  protected producer: Producer;
+  producer: Producer;
   protected message: Message;
   abstract queueName: T["subject"]
 
   constructor() {
-    this.producer = new Producer()
+    this.producer = new Producer(Config)
     this.message = new Message()
   }
 
@@ -25,10 +25,10 @@ export abstract class CustomProducer<T extends Event> {
         if (err) {
           console.log(err)
           reject()
-        } else {
-          console.log(this.message.getBody())
-          resolve()
         }
+        console.log(this.message.getBody())
+        resolve()
+
       })
     })
   }
