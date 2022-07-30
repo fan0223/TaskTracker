@@ -9,11 +9,12 @@ interface Event {
 export abstract class CustomProducer<T extends Event> {
   producer: Producer;
   protected message: Message;
-  abstract queueName: T["subject"]
+  queueName: string
 
-  constructor() {
+  constructor(queueName: string) {
     this.producer = new Producer(Config)
     this.message = new Message()
+    this.queueName = queueName
   }
 
   produce(data: T["data"]): Promise<void> {
