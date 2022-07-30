@@ -1,6 +1,6 @@
 import { Subjects } from '../events/subjects'
 export const todoCreatedQueueManager = function (err: any, queueManager: any) {
-  const queueName = Subjects.TodoCreated
+  const queueName = Subjects.Todo
   if (err) {
     console.log(err)
   } else {
