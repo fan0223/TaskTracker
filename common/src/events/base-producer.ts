@@ -9,12 +9,11 @@ interface Event {
 export abstract class CustomProducer<T extends Event> {
   producer: Producer;
   protected message: Message;
-  queueName: string
+  abstract queueName: T["subject"]
 
-  constructor(queueName: string) {
+  constructor() {
     this.producer = new Producer(Config)
     this.message = new Message()
-    this.queueName = queueName
   }
 
   produce(data: T["data"]): Promise<void> {
@@ -36,16 +35,5 @@ export abstract class CustomProducer<T extends Event> {
   }
 }
 // export class TodoProducer extends CustomProducer<Event>{
-//   constructor(queueName: string) {
-//     super(queueName)
-//     this.queueName = queueName
-//   }
+//   queueName: Subjects = Subjects.Query_TodoCreated
 // }
-// new TodoProducer('query-todoCreated').produce({
-//   id: todo.id,
-//   title: todo.title,
-//   content: todo.content,
-//   userId: todo.userId,
-//   userEmail: todo.userEmail,
-//   createdAt: todo.createAt
-// })
