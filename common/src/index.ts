@@ -13,7 +13,7 @@ export * from './middlewares/validate-request'
 
 export * from './events/subjects'
 export * from './events/query- comment-created-event'
-export * from './events/comment-delete-event'
+export * from './events/query-comment-delete-event'
 export * from './events/query-todo-created-event'
 export * from './events/query-todo-deleted-event'
 export * from './events/query-todo-updated-event'
