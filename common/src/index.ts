@@ -12,7 +12,7 @@ export * from './middlewares/require-auth'
 export * from './middlewares/validate-request'
 
 export * from './events/subjects'
-export * from './events/comment-created-event'
+export * from './events/query- comment-created-event'
 export * from './events/comment-delete-event'
 export * from './events/query-todo-created-event'
 export * from './events/query-todo-deleted-event'

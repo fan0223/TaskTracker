@@ -1,6 +1,4 @@
 export enum Subjects {
-  Todo = 'todo',
-  Update = 'update',
   Comment_TodoCreated = 'comment-todoCreated',
   Comment_TodoDeleted = 'comment-todoDeleted',
   Query_TodoCreated = 'query-todoCreated',

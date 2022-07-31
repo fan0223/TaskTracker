@@ -1,7 +1,6 @@
 import { Consumer, Message } from 'redis-smq'
 import { Subjects } from './subjects';
 import { ICallback } from 'redis-smq-common/dist/types';
-import { TodoCreatedEvent } from './todo-created-event'
 import { Config } from './config'
 
 interface Event {
