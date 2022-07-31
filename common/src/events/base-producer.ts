@@ -35,3 +35,17 @@ export abstract class CustomProducer<T extends Event> {
     })
   }
 }
+// export class TodoProducer extends CustomProducer<Event>{
+//   constructor(queueName: string) {
+//     super(queueName)
+//     this.queueName = queueName
+//   }
+// }
+// new TodoProducer('query-todoCreated').produce({
+//   id: todo.id,
+//   title: todo.title,
+//   content: todo.content,
+//   userId: todo.userId,
+//   userEmail: todo.userEmail,
+//   createdAt: todo.createAt
+// })
