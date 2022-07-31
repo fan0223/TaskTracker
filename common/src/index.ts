@@ -17,10 +17,11 @@ export * from './events/query-comment-delete-event'
 export * from './events/query-todo-created-event'
 export * from './events/query-todo-deleted-event'
 export * from './events/query-todo-updated-event'
+export * from './events/comment-todo-created-event'
+export * from './events/comment-todo-deleted-event'
+
 export * from './events/base-consumer'
 export * from './events/base-producer'
 export * from './events/config'
 export * from './events/redisMq'
 
-export * from './queueManager/todoCreate-queueManager'
-export * from './queueManager/todoUpdate-queueManager'
