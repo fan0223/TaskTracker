@@ -1,8 +1,12 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-// import { redisMQ } from './redisMq'
-// import { config } from './config'
-// import { todoCreated } from './events/todoCreate-queue'
+
+import { TodoCreatedConsumer } from './events/consumer/todoCreatedConsumer'
+import { TodoDeletedConsumer } from './events/consumer/todoDeletedConsumer'
+import { TodoUpdatedConsumer } from './events/consumer/todoUpdatedConsumer'
+import { CommentCreatedConsumer } from './events/consumer/commentCreatedConsumer'
+import { CommentDeletedConsumer } from './events/consumer/commentDeletedConsumer'
+
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -13,7 +17,7 @@ const start = async () => {
   }
 
   try {
-    // redisMQ.createInstance(config, todoCreated)
+    // redisMQ.createInstance(Config, todoCreatedQueueManager)
 
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000
@@ -26,7 +30,11 @@ const start = async () => {
       await collection.deleteMany({})
     }
 
-
+    new TodoCreatedConsumer().listen()
+    new TodoUpdatedConsumer().listen()
+    new TodoDeletedConsumer().listen()
+    new CommentCreatedConsumer().listen()
+    new CommentDeletedConsumer().listen()
     console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)

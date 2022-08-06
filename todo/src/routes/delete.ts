@@ -1,6 +1,7 @@
 import express, { Response, Request } from 'express'
 import { requireAuth, NotFoundError, NotAuthorizedError } from '@fan-todo/common'
-
+import { TodoDeletedProducerQuery } from '../events/producer/todoDeletedProducerQuery'
+import { TodoDeletedProducerComment } from '../events/producer/todoDeletedProducerComment'
 import { Todo } from '../models/todo'
 
 const router = express.Router()
@@ -14,8 +15,19 @@ router.delete('/api/todo/:id', requireAuth, async (req: Request, res: Response) 
   if (todo.userId !== req.currentUser!.id) {
     throw new NotAuthorizedError()
   }
-  const response = await Todo.findByIdAndDelete(id)
-  res.status(200).send(response)
+  const deletedTodo = await Todo.findByIdAndDelete(id)
+  if (!deletedTodo) {
+    throw new NotFoundError()
+  }
+  await new TodoDeletedProducerComment().produce({
+    id: deletedTodo.id,
+    userId: deletedTodo.userId
+  })
+  await new TodoDeletedProducerQuery().produce({
+    id: deletedTodo.id,
+    userId: deletedTodo.userId
+  })
+  res.status(200).send(deletedTodo)
 })
 
 export { router as deleteTodoRouter }

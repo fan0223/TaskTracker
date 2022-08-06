@@ -2,8 +2,8 @@ import express, { Response, Request } from 'express'
 import { Todo } from '../models/todo'
 import { requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
-import { TodoCreatedProducer } from '../events/producer/todoCreatedProducer'
-
+import { TodoCreatedProducerQuery } from '../events/producer/todoCreatedProducerQuery'
+import { TodoCreatedProducerComment } from '../events/producer/todoCreatedProducerComment'
 
 
 
@@ -35,8 +35,7 @@ router.post('/api/todo',
 
     await todo.save()
 
-    const P = new TodoCreatedProducer()
-    await P.produce({
+    await new TodoCreatedProducerQuery().produce({
       id: todo.id,
       title: todo.title,
       content: todo.content,
@@ -45,6 +44,14 @@ router.post('/api/todo',
       createdAt: todo.createAt
     })
 
+    await new TodoCreatedProducerComment().produce({
+      id: todo.id,
+      title: todo.title,
+      content: todo.content,
+      userId: todo.userId,
+      userEmail: todo.userEmail,
+      createdAt: todo.createAt
+    })
 
     res.status(201).send(todo)
   })

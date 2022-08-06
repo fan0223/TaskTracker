@@ -1,7 +1,11 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-import { Config, redisMQ, todoCreatedQueueManager } from '@fan-todo/common'
-
+import { Config, redisMQ } from '@fan-todo/common'
+import { todoCreatedQueueManager_Query } from './events/queueManager/todoCreateQueueManager-Query'
+import { todoCreatedQueueManager_Comment } from './events/queueManager/todoCreateQueueManager-Comment'
+import { todoDeletedQueueManager_Comment } from './events/queueManager/todoDeletedQueueManager-Comment'
+import { todoDeletedQueueManager_Query } from './events/queueManager/todoDeletedQueueManager-Query'
+import { todoUpdatedQueueManager_Query } from './events/queueManager/todoUpdatedQueueManager-Query'
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -12,8 +16,11 @@ const start = async () => {
   }
 
   try {
-    redisMQ.createInstance(Config, todoCreatedQueueManager)
-    // redisMQ.createInstance(config, todoUpdated)
+    redisMQ.createInstance(Config, todoCreatedQueueManager_Query)
+    redisMQ.createInstance(Config, todoCreatedQueueManager_Comment)
+    redisMQ.createInstance(Config, todoUpdatedQueueManager_Query)
+    redisMQ.createInstance(Config, todoDeletedQueueManager_Comment)
+    redisMQ.createInstance(Config, todoDeletedQueueManager_Query)
 
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000

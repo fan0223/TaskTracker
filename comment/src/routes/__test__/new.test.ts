@@ -22,7 +22,16 @@ it('Return 201 created if provided valid paramster', async () => {
   expect(comment.length).toEqual(1)
   expect(response.body.content).toEqual('testContent')
 })
-// it('Return 404 not found if the todoId is not exist ', async () => { })
+it('Return 404 not found if the todoId is not exist ', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString()
+  await request(app)
+    .post(`/api/todo/${id}/comment`)
+    .set('Cookie', global.signin())
+    .send({
+      content: 'testContent'
+    })
+    .expect(404)
+})
 it('Return 400 Bad request if provide an invalid paramster', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()
   const todo = Todo.build({

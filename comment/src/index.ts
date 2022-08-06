@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 import { app } from './app'
+import { Config, redisMQ } from '@fan-todo/common'
 
 import { TodoCreatedConsumer } from './events/comsumer/todoCreatedConsumer'
-
-import { Consumer, Message } from 'redis-smq'
-import { ICallback } from 'redis-smq-common/dist/types';
-import { Subjects, redisMQ, Config, todoCreatedQueueManager } from '@fan-todo/common'
+import { TodoDeletedConsumer } from './events/comsumer/todoDeletedConsumer'
+import { commentCreatedQueueManager_Query } from './events/queueManager/commentCreatedQueueManager-Query'
+import { commentDeletedQueueManager_Query } from './events/queueManager/commentDeletedQueueManager-Query'
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -16,8 +16,9 @@ const start = async () => {
   }
 
   try {
-    // redis-smq queueManager instance
-    redisMQ.createInstance(Config, todoCreatedQueueManager)
+    redisMQ.createInstance(Config, commentCreatedQueueManager_Query)
+    redisMQ.createInstance(Config, commentDeletedQueueManager_Query)
+
 
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 50000
@@ -31,6 +32,7 @@ const start = async () => {
     }
 
     new TodoCreatedConsumer().listen()
+    new TodoDeletedConsumer().listen()
     // const consumer = new Consumer(config)
     // const messageHandler = (msg: Message, cb: ICallback<void>) => {
     //   const payload = msg.getBody()

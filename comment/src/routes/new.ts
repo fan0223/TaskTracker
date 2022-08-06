@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express'
 import { Comment } from '../models/comment'
-import { requireAuth, validateRequest } from '@fan-todo/common'
+import { Todo } from '../models/todo'
+import { NotFoundError, requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
+import { CommentCreatedProducerQuery } from '../events/producer/commentCreatedProducerQuery'
 
 const router = express()
 
@@ -17,6 +19,12 @@ router.post('/api/todo/:todoId/comment',
   async (req: Request, res: Response) => {
     const { todoId } = req.params
     const { content } = req.body
+
+    const todoIsExist = await Todo.findById(todoId)
+    if (!todoIsExist) {
+      throw new NotFoundError()
+    }
+
     const comment = Comment.build({
       todoId: todoId,
       userId: req.currentUser!.id,
@@ -24,6 +32,14 @@ router.post('/api/todo/:todoId/comment',
       content: content
     })
     await comment.save()
+
+    await new CommentCreatedProducerQuery().produce({
+      id: comment.id,
+      todoId: comment.todoId,
+      userId: comment.userId,
+      createdAt: comment.createdAt,
+      content: comment.content
+    })
 
     res.status(201).send(comment)
   })

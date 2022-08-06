@@ -2,6 +2,7 @@ import { requireAuth, NotFoundError, BadRequestError } from '@fan-todo/common'
 import express, { Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { Comment } from '../models/comment'
+import { CommentDeletedProducerQuery } from '../events/producer/commentDeletedProducerQuery'
 const router = express()
 
 router.delete('/api/todo/:todoId/comment/:commentId',
@@ -19,12 +20,22 @@ router.delete('/api/todo/:todoId/comment/:commentId',
       throw new BadRequestError('Only delete your own comments')
     }
 
-    const udpatedComents = await Comment.deleteOne({ todoId: todoId }, {
-      id: commentId
-    }
-    )
+    // const udpatedComment = await Comment.deleteOne({ todoId: todoId }, {
+    //   id: commentId
+    // }
+    // )
+    const deletedComment = await Comment.findByIdAndDelete(commentId)
 
-    res.send(udpatedComents)
+
+    await new CommentDeletedProducerQuery().produce({
+      id: comment.id,
+      todoId: todoId,
+      userId: comment.userId,
+      createdAt: comment.createdAt,
+      content: comment.content
+    })
+
+    res.send(deletedComment)
   })
 
 export { router as deleteCommentRouter }

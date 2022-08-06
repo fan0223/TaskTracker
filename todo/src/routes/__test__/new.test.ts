@@ -1,8 +1,10 @@
 import request from 'supertest'
 import { app } from '../../app'
 import { Todo } from '../../models/todo'
+import { TodoCreatedProducerQuery } from '../../events/producer/todoCreatedProducerQuery'
 
 it('Return 201 created with valid inputs and Route handler listening to /api/todo for POST request', async () => {
+  jest.setTimeout(30000);
   let todo = await Todo.find({})
   expect(todo.length).toEqual(0)
 
@@ -44,4 +46,19 @@ it('return 401 not authenticate if the user is not authenticate', async () => {
       'content': "test"
     })
     .expect(401)
+})
+
+it('produce an event', async () => {
+  jest.setTimeout(30000);
+  await request(app)
+    .post('/api/todo')
+    .set('Cookie', global.signin())
+    .send({
+      'title': "test",
+      'content': "testContent"
+    })
+    .expect(201)
+
+  expect(TodoCreatedProducerQuery).toHaveBeenCalledTimes(1)
+
 })

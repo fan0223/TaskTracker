@@ -1,18 +1,20 @@
 import mongoose from 'mongoose'
 
 interface comment {
+  commentId: string,
   todoId: string,
   createdAt: string,
   userId: string,
   content: string
 }
 interface TodoAttrs {
+  id: string,
   title: string,
   content: string,
   userId: string,
   createdAt: string,
   userEmail: string,
-  comments: Array<comment>
+  // comments: Array<comment>
 }
 interface TodoDoc extends mongoose.Document {
   title: string,
@@ -49,12 +51,13 @@ const todoSchema = new mongoose.Schema({
   },
   comments: {
     type: [{
+      commentId: String,
       todoId: String,
       createdAt: String,
       userId: String,
       content: String
-    }],
-    required: true
+    }]
+
   },
 }, {
   toJSON: {
@@ -66,7 +69,14 @@ const todoSchema = new mongoose.Schema({
 })
 
 todoSchema.statics.build = (attrs: TodoAttrs) => {
-  return new Todo(attrs)
+  return new Todo({
+    _id: attrs.id,
+    title: attrs.title,
+    content: attrs.content,
+    userId: attrs.userId,
+    userEmail: attrs.userEmail,
+    createdAt: attrs.createdAt
+  })
 }
 
 const Todo = mongoose.model<TodoDoc, TodoModel>('Todo', todoSchema)
