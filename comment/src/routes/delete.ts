@@ -1,7 +1,9 @@
 import { requireAuth, NotFoundError, BadRequestError } from '@fan-todo/common'
 import express, { Request, Response } from 'express'
 import mongoose from 'mongoose'
+import { Todo } from '../models/todo'
 import { Comment } from '../models/comment'
+
 import { CommentDeletedProducerQuery } from '../events/producer/commentDeletedProducerQuery'
 const router = express()
 
@@ -10,8 +12,11 @@ router.delete('/api/todo/:todoId/comment/:commentId',
   async (req: Request, res: Response) => {
     const { todoId, commentId } = req.params
     // check if the todoId exists 
+    const todoIsExist = await Todo.findById(todoId)
+    if (!todoIsExist) {
+      throw new NotFoundError()
+    }
 
-    // 
     const comment = await Comment.findById(commentId)
     if (!comment) {
       throw new NotFoundError()

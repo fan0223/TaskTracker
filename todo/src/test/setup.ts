@@ -7,7 +7,10 @@ declare global {
   var signin: () => string[]
 }
 jest.mock('../events/producer/todoCreatedProducerQuery')
-
+jest.mock('../events/producer/todoCreatedProducerComment')
+jest.mock('../events/producer/todoDeletedProducerQuery')
+jest.mock('../events/producer/todoDeletedProducerComment')
+jest.mock('../events/producer/todoUpdatedProducerQuery')
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdf'

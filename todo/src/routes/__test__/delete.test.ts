@@ -2,6 +2,8 @@ import request from 'supertest'
 import { app } from '../../app'
 import mongoose from 'mongoose'
 import { Todo } from '../../models/todo'
+import { TodoDeletedProducerQuery } from '../../events/producer/todoDeletedProducerQuery'
+import { TodoDeletedProducerComment } from '../../events/producer/todoDeletedProducerComment'
 
 it('return 404 not found if the provided id dose not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()
@@ -37,6 +39,7 @@ it('return 401 not authenticate if the user is not own the todo', async () => {
     .expect(401)
 })
 it('return 200 OK.Provided correct id and return deleted todo.', async () => {
+
   const title = 'testTitle'
   const content = 'testContent'
   const cookie = global.signin()
@@ -55,4 +58,7 @@ it('return 200 OK.Provided correct id and return deleted todo.', async () => {
   expect(deletedTodo.body.title).toEqual(title)
   expect(deletedTodo.body.content).toEqual(content)
   expect(deletedTodo.body.id).toEqual(response.body.id)
+
+  expect(TodoDeletedProducerQuery).toHaveBeenCalled()
+  expect(TodoDeletedProducerComment).toHaveBeenCalled()
 })

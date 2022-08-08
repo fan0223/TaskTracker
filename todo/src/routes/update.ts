@@ -34,7 +34,7 @@ router.put('/api/todo/:id',
     await todo.save()
 
 
-    new TodoUpdatedProducerQuery().produce({
+    await new TodoUpdatedProducerQuery().produce({
       id: todo.id,
       title: todo.title,
       content: todo.content
