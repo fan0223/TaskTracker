@@ -8,6 +8,8 @@ export interface Query_TodoCreatedEvent {
     content: string,
     userId: string,
     userEmail: string,
-    createdAt: string
+    createdAt: string,
+    imageName: string,
+    imageUrl: string
   }
 }
