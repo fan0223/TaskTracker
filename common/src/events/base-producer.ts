@@ -17,20 +17,23 @@ export abstract class CustomProducer<T extends Event> {
   }
 
   produce(data: T["data"]): Promise<void> {
-    this.message.setPriority(Message.MessagePriority.HIGH).setQueue(this.queueName)
-    this.message.setBody(data).setQueue(this.queueName)
+
 
     return new Promise((resolve, reject) => {
-      this.producer.produce(this.message, (err) => {
-        if (err) {
-          console.log(err)
-          reject()
-        }
-        console.log("emit ", this.message.getBody(), `to ${this.queueName}`)
-        resolve()
+      this.producer.run((err) => {
+        if (err) throw err
+        this.message.setPriority(Message.MessagePriority.HIGH).setQueue(this.queueName)
+        this.message.setBody(data).setQueue(this.queueName)
+        this.producer.produce(this.message, (err) => {
+          if (err) {
+            console.log(err)
+            reject()
+          }
+          console.log("emit ", this.message.getBody(), `to ${this.queueName}`)
+          resolve()
 
+        })
       })
-      this.producer.run()
     })
   }
 }
