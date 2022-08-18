@@ -14,6 +14,8 @@ interface TodoAttrs {
   userId: string,
   createdAt: string,
   userEmail: string,
+  imageName: string,
+  imageUrl: string
   // comments: Array<comment>
 }
 interface TodoDoc extends mongoose.Document {
@@ -22,6 +24,8 @@ interface TodoDoc extends mongoose.Document {
   userId: string,
   createdAt: string,
   userEmail: string,
+  imageName: string,
+  imageUrl: string
   comments: Array<comment>
 }
 interface TodoModel extends mongoose.Model<TodoDoc> {
@@ -49,6 +53,14 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imageName: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   comments: {
     type: [{
       commentId: String,
@@ -57,7 +69,6 @@ const todoSchema = new mongoose.Schema({
       userId: String,
       content: String
     }]
-
   },
 }, {
   toJSON: {
@@ -75,7 +86,9 @@ todoSchema.statics.build = (attrs: TodoAttrs) => {
     content: attrs.content,
     userId: attrs.userId,
     userEmail: attrs.userEmail,
-    createdAt: attrs.createdAt
+    createdAt: attrs.createdAt,
+    imageName: attrs.imageName,
+    imageUrl: attrs.imageUrl
   })
 }
 

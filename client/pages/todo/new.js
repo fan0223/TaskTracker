@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import useRequest from '../../hooks/use-request';
 import Router from 'next/router';
+import axios from 'axios';
 
 const NewTodo = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [file, setFile] = useState(null);
 
   const { doRequest, errors } = useRequest({
     url: '/api/todo',
@@ -12,11 +14,14 @@ const NewTodo = () => {
     body: {
       title,
       content,
+      image: file,
     },
     onSuccess: () => Router.push('/'),
+    isMultipart: true,
   });
 
   const onSubmit = async (event) => {
+    console.log(file);
     event.preventDefault();
     await doRequest();
   };
@@ -26,9 +31,14 @@ const NewTodo = () => {
       <h1>Create Todo</h1>
       <form onSubmit={onSubmit}>
         <div className="form-group mb-3">
+          <label>Cover</label>
+          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+        </div>
+        <div className="form-group mb-3">
           <label>Title</label>
           <input
             className="form-control"
+            accept="image/*"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />

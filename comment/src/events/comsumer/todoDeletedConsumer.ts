@@ -2,6 +2,7 @@ import { CustomConsumer, Comment_TodoDeletedEvent, Subjects, NotFoundError } fro
 import { ICallback } from 'redis-smq-common/dist/types';
 import { Message } from 'redis-smq'
 import { Todo } from '../../models/todo';
+import { Comment } from '../../models/comment';
 export class TodoDeletedConsumer extends CustomConsumer<Comment_TodoDeletedEvent>{
   queueName: Subjects.Comment_TodoDeleted = Subjects.Comment_TodoDeleted
   messageHandler: (msg: Message, cb: ICallback<void>) => void = async (msg, cb) => {
@@ -11,7 +12,11 @@ export class TodoDeletedConsumer extends CustomConsumer<Comment_TodoDeletedEvent
     const { id } = payload
     await Todo.findByIdAndDelete(id)
       .then((todo) => {
-        console.log('deleted:', todo)
+        console.log('Deleted todo:', todo)
+      })
+    await Comment.deleteMany({ todoId: id })
+      .then((comments) => {
+        console.log('Deleted comments:', comments)
       })
 
     cb()
