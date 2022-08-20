@@ -1,8 +1,20 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+import AWS from 'aws-sdk';
+
+const region = process.env.BUCKET_REGION;
+const accessKeyId = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+
 import express, { Response, Request } from 'express'
 import { requireAuth, NotFoundError, NotAuthorizedError } from '@fan-todo/common'
 import { TodoDeletedProducerQuery } from '../events/producer/todoDeletedProducerQuery'
 import { TodoDeletedProducerComment } from '../events/producer/todoDeletedProducerComment'
 import { Todo } from '../models/todo'
+import { s3Client } from '../events/s3-client'
 
 const router = express.Router()
 
@@ -19,6 +31,27 @@ router.delete('/api/todo/:id', requireAuth, async (req: Request, res: Response) 
   if (!deletedTodo) {
     throw new NotFoundError()
   }
+
+  const BUCKET_NAME = process.env.BUCKET_NAME as string
+  const deleteParams = {
+    Bucket: BUCKET_NAME,
+    Key: deletedTodo.imageName
+  }
+  try {
+    await s3Client.headObject(deleteParams).promise()
+    console.log("File Found in S3")
+    try {
+      await s3Client.deleteObject(deleteParams).promise()
+      console.log("file deleted Successfully")
+    }
+    catch (err) {
+      console.log("ERROR in file Deleting : " + JSON.stringify(err))
+    }
+  } catch (error: any) {
+    console.log("File not Found ERROR : " + error.code)
+  }
+
+
   await new TodoDeletedProducerComment().produce({
     id: deletedTodo.id,
     userId: deletedTodo.userId

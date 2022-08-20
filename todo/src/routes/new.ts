@@ -6,6 +6,7 @@ import { BadRequestError, NotFoundError, requireAuth, validateRequest } from '@f
 import { body } from 'express-validator'
 import { TodoCreatedProducerQuery } from '../events/producer/todoCreatedProducerQuery'
 import { TodoCreatedProducerComment } from '../events/producer/todoCreatedProducerComment'
+import { s3Client } from '../events/s3-client';
 
 import multer from 'multer';
 import AWS from 'aws-sdk';
@@ -18,16 +19,7 @@ const router = express.Router()
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const randomImageName = () => crypto.randomBytes(32).toString('hex');
-const region = process.env.BUCKET_REGION;
-const bucketName = process.env.BUCKET_NAME;
-const accessKeyId = process.env.ACCESS_KEY;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
-const s3Client = new AWS.S3({
-  region: region,
-  accessKeyId: accessKeyId,
-  secretAccessKey: secretAccessKey,
-});
 
 router.post('/api/todo',
   requireAuth,
@@ -60,7 +52,7 @@ router.post('/api/todo',
     const imageName = randomImageName();
     console.log(imageName)
     const putObjectParams = {
-      Bucket: bucketName,
+      Bucket: process.env.BUCKET_NAME,
       Key: imageName,
       Body: ImageBuffer,
       ContentType: req.file.mimetype,
@@ -78,9 +70,8 @@ router.post('/api/todo',
     await putObjectWrapper(putObjectParams);
     // After s3 upload image, fetch image url, store in database.
     const getUrlParams = {
-      Bucket: bucketName,
-      Key: imageName,
-      Expires: 60
+      Bucket: process.env.BUCKET_NAME,
+      Key: imageName
     }
     let imageUrl = s3Client.getSignedUrl('getObject', getUrlParams)
 
@@ -110,14 +101,14 @@ router.post('/api/todo',
     })
 
     // Message Queue produce to Comment.
-    // await new TodoCreatedProducerComment().produce({
-    //   id: todo.id,
-    //   title: todo.title,
-    //   content: todo.content,
-    //   userId: todo.userId,
-    //   userEmail: todo.userEmail,
-    //   createdAt: todo.createAt
-    // })
+    await new TodoCreatedProducerComment().produce({
+      id: todo.id,
+      title: todo.title,
+      content: todo.content,
+      userId: todo.userId,
+      userEmail: todo.userEmail,
+      createdAt: todo.createAt
+    })
 
     res.status(201).send(todo)
   })
