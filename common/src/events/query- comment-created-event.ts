@@ -5,6 +5,7 @@ export interface Query_CommentCreatedEvent {
     id: string,
     todoId: string,
     userId: string,
+    userName: string,
     createdAt: string,
     content: string
   }
