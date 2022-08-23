@@ -8,7 +8,6 @@ const TodoShow = ({ data }) => {
       <Link href="/todo/edit/[todoId]" as={`/todo/edit/${data.id}`}>
         <a className="btn btn-primary">Edit</a>
       </Link>
-      {/*  */}
     </div>
   );
 };

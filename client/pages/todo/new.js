@@ -27,12 +27,20 @@ const NewTodo = () => {
   };
 
   return (
-    <div className="mb-3">
+    <div className="mx-5 px-5 py-3 bg-white bg-opacity-50 rounded">
       <h1>Create Todo</h1>
       <form onSubmit={onSubmit}>
         <div className="form-group mb-3">
-          <label>Cover</label>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <label className="form-label" htmlFor="customFile">
+            Cover image
+          </label>
+          <br />
+          <input
+            className="form-control"
+            id="customFile"
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
         </div>
         <div className="form-group mb-3">
           <label>Title</label>

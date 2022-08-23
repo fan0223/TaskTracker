@@ -5,6 +5,7 @@ interface comment {
   todoId: string,
   createdAt: string,
   userId: string,
+  userName: string,
   content: string
 }
 interface TodoAttrs {
@@ -67,6 +68,7 @@ const todoSchema = new mongoose.Schema({
       todoId: String,
       createdAt: String,
       userId: String,
+      userName: String,
       content: String
     }]
   },

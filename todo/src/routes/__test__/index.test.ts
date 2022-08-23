@@ -5,10 +5,13 @@ const createTodo = () => {
   return request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      title: 'testTitle',
-      content: 'testContent'
-    })
+    // .send({
+    //   title: 'testTitle',
+    //   content: 'testContent'
+    // })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
 }
 
 it('can fetch a list of all todo', async () => {

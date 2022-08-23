@@ -16,7 +16,10 @@ it('return 200 OK if the todo is found', async () => {
   const createTodo = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({ title, content })
+    // .send({ title, content })
+    .field('title', title)
+    .field('content', content)
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
 
   const showTodo = await request(app)

@@ -16,10 +16,9 @@ it('return 401 not authenticate if the user is not signin', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   await request(app)
     .delete(`/api/todo/${response.body.id}`)
@@ -29,10 +28,9 @@ it('return 401 not authenticate if the user is not own the todo', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   await request(app)
     .delete(`/api/todo/${response.body.id}`)
@@ -46,10 +44,9 @@ it('return 200 OK.Provided correct id and return deleted todo.', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', cookie)
-    .send({
-      title: title,
-      content: content
-    })
+    .field('title', title)
+    .field('content', content)
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   const deletedTodo = await request(app)
     .delete(`/api/todo/${response.body.id}`)

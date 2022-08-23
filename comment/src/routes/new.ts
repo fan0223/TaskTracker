@@ -28,6 +28,7 @@ router.post('/api/todo/:todoId/comment',
     const comment = Comment.build({
       todoId: todoId,
       userId: req.currentUser!.id,
+      userName: req.currentUser!.email,
       createdAt: new Date().toLocaleString(),
       content: content
     })
@@ -37,6 +38,7 @@ router.post('/api/todo/:todoId/comment',
       id: comment.id,
       todoId: comment.todoId,
       userId: comment.userId,
+      userName: comment.userName,
       createdAt: comment.createdAt,
       content: comment.content
     })

@@ -20,10 +20,9 @@ it('return 401 if the user is not authenticate', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   await request(app)
     .put(`/api/todo/${response.body.id}`)
@@ -37,10 +36,9 @@ it('return 401 if the user dose not own the todo', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   await request(app)
     .put(`/api/todo/${response.body.id}`)
@@ -56,10 +54,9 @@ it('return 400 if the user provides an invalid input', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', cookie)
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   await request(app)
     .put(`/api/todo/${response.body.id}`)
@@ -77,10 +74,9 @@ it('return 200 OK. updates the todo provided valid input', async () => {
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', cookie)
-    .send({
-      title: 'test',
-      content: 'test'
-    })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
   const updatedTodo = await request(app)
     .put(`/api/todo/${response.body.id}`)

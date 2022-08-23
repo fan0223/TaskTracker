@@ -2,7 +2,7 @@ import { CustomConsumer, Query_CommentCreatedEvent, Subjects } from '@fan-todo/c
 import { ICallback } from 'redis-smq-common/dist/types';
 import { Message } from 'redis-smq'
 import { Todo } from '../../models/todo';
-import { Comment } from '../../models/comment';
+
 import mongoose from 'mongoose';
 export class CommentCreatedConsumer extends CustomConsumer<Query_CommentCreatedEvent>{
   queueName: Subjects.Query_CommentCreated = Subjects.Query_CommentCreated
@@ -10,7 +10,7 @@ export class CommentCreatedConsumer extends CustomConsumer<Query_CommentCreatedE
     const payload = msg.getBody() as Query_CommentCreatedEvent['data']
     console.log('Received ', payload, `by: ${this.queueName}`)
 
-    const { id, todoId, userId, createdAt, content } = payload
+    const { id, todoId, userId, userName, createdAt, content } = payload
     // const comment = Comment.build({ id, todoId, userId, createdAt, content })
     // await comment.save()
     const updatedTodo = await Todo.findByIdAndUpdate(
@@ -21,6 +21,7 @@ export class CommentCreatedConsumer extends CustomConsumer<Query_CommentCreatedE
             commentId: id,
             todoId,
             userId,
+            userName,
             createdAt,
             content
           }

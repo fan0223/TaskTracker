@@ -27,6 +27,7 @@ export default ({ url, method, body, onSuccess, isMultipart }) => {
       // Router.push('/');
       return response.data;
     } catch (error) {
+      console.log(error);
       setErrors(
         <div className="alert alert-danger opacity-75 mt-3">
           <h4>Oooop...</h4>

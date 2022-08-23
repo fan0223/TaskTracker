@@ -11,10 +11,13 @@ it('Return 201 created with valid inputs and Route handler listening to /api/tod
   const response = await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      'title': "test",
-      'content': "testContent"
-    })
+    // .send({
+    //   'title': "test",
+    //   'content': "testContent"
+    // })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
   expect(response.status).toEqual(201)
 
   todo = await Todo.find({})
@@ -52,10 +55,13 @@ it('produce an event', async () => {
   await request(app)
     .post('/api/todo')
     .set('Cookie', global.signin())
-    .send({
-      'title': "test",
-      'content': "testContent"
-    })
+    // .send({
+    //   'title': "test",
+    //   'content': "testContent"
+    // })
+    .field('title', "test")
+    .field('content', "testContent")
+    .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
 
   expect(TodoCreatedProducerQuery).toHaveBeenCalled()

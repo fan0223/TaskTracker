@@ -3,12 +3,14 @@ import mongoose from 'mongoose'
 interface CommentAttrs {
   todoId: string,
   userId: string,
+  userName: string,
   createdAt: string,
   content: string
 }
 interface CommentDoc extends mongoose.Document {
   todoId: string,
   userId: string,
+  userName: string,
   createdAt: string,
   content: string
 }
@@ -22,6 +24,10 @@ const commentSchema = new mongoose.Schema({
     required: true
   },
   userId: {
+    type: String,
+    required: true
+  },
+  userName: {
     type: String,
     required: true
   },

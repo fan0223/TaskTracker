@@ -6,10 +6,14 @@ import '../public/css/style.css';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+        rel="stylesheet"
+      ></link>
       <div className="container">
         <Header currentUser={currentUser} />
-        <div className="container px-3 py-3 bg-light bg-opacity-50 rounded">
-          <Component {...pageProps} />
+        <div className="container ">
+          <Component {...pageProps} currentUser={currentUser} />
         </div>
       </div>
     </div>

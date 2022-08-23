@@ -22,28 +22,36 @@ export default () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1>Sign In</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control"
-        />
-      </div>
-      <button className="btn btn-primary">Sign In</button>
+    <div className="row d-flex justify-content-center">
+      <div className="col-md-6 col-xl-4">
+        <div className="card my-3 bg-white bg-opacity-50">
+          <div className="card-body d-flex flex-column align-item-center">
+            <form className="text-center" onSubmit={onSubmit}>
+              <h1>Sign In</h1>
+              <div className="form-group  mb-3">
+                <label>Email Address</label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group  mb-3">
+                <label>Password</label>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  className="form-control"
+                />
+              </div>
+              <button className="btn btn-outline-dark">Sign In</button>
 
-      {errors}
-    </form>
+              {errors}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
