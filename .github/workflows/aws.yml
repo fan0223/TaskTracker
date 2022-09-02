@@ -78,8 +78,8 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           cd client
-          docker build -t 927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app/client:latest .
-          docker push 927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app/client:latest
+          docker build -t fan-todo-app/client:latest .
+          docker push fan-todo-app/client:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
