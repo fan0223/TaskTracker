@@ -1,0 +1,19 @@
+{
+    "family": "fan-todo-app",
+    "executionRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [{
+        "name": "fan-todo-app",
+        "image": "927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app:latest",
+        "portMappings": [{
+            "containerPort": 3000,
+            "hostPort": 3000,
+            "protocol": "tcp"
+        }],
+        "essential": true
+    }],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "512",
+    "memory": "1024",
+    "taskRoleArn": "arn:aws:iam::927982608834:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+}

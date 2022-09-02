@@ -41,7 +41,7 @@ router.post('/api/todo',
   validateRequest,
   async (req: Request, res: Response) => {
     const { title, content } = req.body
-    console.log('req.file', req.file);
+
     if (!req.file) {
       throw new BadRequestError('Wrong cover image')
     }
@@ -50,7 +50,7 @@ router.post('/api/todo',
       .resize({ height: 1920 })
       .toBuffer()
     const imageName = randomImageName();
-    console.log(imageName)
+
     const putObjectParams = {
       Bucket: process.env.BUCKET_NAME,
       Key: imageName,
@@ -89,7 +89,7 @@ router.post('/api/todo',
 
 
     // Message Queue produce to Query.
-    await new TodoCreatedProducerQuery().produce({
+    new TodoCreatedProducerQuery().produce({
       id: todo.id,
       title: todo.title,
       content: todo.content,
@@ -101,7 +101,7 @@ router.post('/api/todo',
     })
 
     // Message Queue produce to Comment.
-    await new TodoCreatedProducerComment().produce({
+    new TodoCreatedProducerComment().produce({
       id: todo.id,
       title: todo.title,
       content: todo.content,
