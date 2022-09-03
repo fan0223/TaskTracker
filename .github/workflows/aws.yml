@@ -37,7 +37,7 @@ env:
   ECS_SERVICE: client # set this to your Amazon ECS service name
   ECS_CLUSTER: fan-todo-app-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
-    ./ecs-task-definition.json # set this to the path to your Amazon ECS task definition
+    .aws/ecs-task-definition.json # set this to the path to your Amazon ECS task definition
     # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
     fan-todo-app # set this to the name of the container in the
@@ -81,7 +81,7 @@ jobs:
           docker build -t fan-todo-app .
           docker tag fan-todo-app:latest 927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app:latest
           docker push 927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app:latest
-          # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "::set-output name=image::927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app:latest"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
