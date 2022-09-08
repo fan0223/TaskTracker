@@ -22,7 +22,8 @@ export const Config: IConfig = {
   redis: {
     client: RedisClientName.IOREDIS,
     options: {
-      host: 'redis-srv',
+      // host: 'redis-srv',
+      host: 'arn:aws:memorydb:ap-northeast-1:927982608834:cluster/redis-server',
       port: 6379
     },
   },
