@@ -22,7 +22,27 @@
         "command": null,
         "linuxParameters": null,
         "cpu": 0,
-        "environment": [],
+        "environment": [{
+                "name": "BUCKET_NAME",
+                "value": "fan-demo-created"
+            },
+            {
+                "name": "BUCKET_REGION",
+                "value": "ap-southeast-1"
+            },
+            {
+                "name": "ACCESS_KEY",
+                "value": "AKIA5QEAS4HBAJMY3VTA"
+            },
+            {
+                "name": "SECRET_ACCESS_KEY",
+                "value": "36NUBV50TSncFMPgFjJXtA2k7OEfqcvoTWuA6Spk"
+            },
+            {
+                "name": "JWT_SECRET",
+                "value": "jwtSecret"
+            }
+        ],
         "resourceRequirements": null,
         "ulimits": null,
         "dnsServers": null,

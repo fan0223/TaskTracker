@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import mongoose from 'mongoose'
 import { app } from './app'
 import { Config, redisMQ } from '@fan-todo/common'
