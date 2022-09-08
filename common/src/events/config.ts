@@ -20,11 +20,11 @@ export interface IConfig {
 export const Config: IConfig = {
   namespace: 'redismq',
   redis: {
-    client: RedisClientName.IOREDIS,
+    client: RedisClientName.REDIS,
     options: {
       // host: 'redis-srv',
-      host: 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
-      port: 6379
+      host: 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com:6379',
+      // port: 6379
     },
   },
   logger: {
