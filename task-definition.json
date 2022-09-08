@@ -39,7 +39,7 @@
                 "value": "36NUBV50TSncFMPgFjJXtA2k7OEfqcvoTWuA6Spk"
             },
             {
-                "name": "JWT_SECRET",
+                "name": "JWT_KEY",
                 "value": "jwtSecret"
             }
         ],
