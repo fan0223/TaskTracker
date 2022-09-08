@@ -23,6 +23,7 @@ const start = async () => {
     redisMQ.createInstance(Config, todoDeletedQueueManager_Query)
 
     await mongoose.connect(process.env.MONGO_URI, {
+      tlsCAFile: `rds-combined-ca-bundle.pem`,
       serverSelectionTimeoutMS: 50000
     })
 
