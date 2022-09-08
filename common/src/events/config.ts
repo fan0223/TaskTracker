@@ -18,7 +18,7 @@ export interface IConfig {
   messages?: IMessagesConfig;
 }
 export const Config: IConfig = {
-  namespace: 'redismq',
+  namespace: 'redis',
   redis: {
     client: RedisClientName.REDIS,
     options: {
