@@ -19,7 +19,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@fan-todo/common": "^1.0.41",
+        "@fan-todo/common": "^1.0.42",
         "@types/cookie-session": "^2.0.44",
         "@types/express": "^4.17.13",
         "@types/multer": "^1.4.7",
