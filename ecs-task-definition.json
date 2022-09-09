@@ -3,7 +3,7 @@
     "executionRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "containerDefinitions": [{
-        "name": "fan-todo-app",
+        "name": "todo-app_todo",
         "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest",
         "portMappings": [{
             "containerPort": 3000,
