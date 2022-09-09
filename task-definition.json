@@ -8,7 +8,7 @@
             "logDriver": "awslogs",
             "secretOptions": null,
             "options": {
-                "awslogs-group": "/ecs/todo-app-task-definition",
+                "awslogs-group": "/ecs/CLIENT_todo-app_task-definition",
                 "awslogs-region": "ap-northeast-1",
                 "awslogs-stream-prefix": "ecs"
             }
@@ -23,22 +23,6 @@
         "linuxParameters": null,
         "cpu": 0,
         "environment": [{
-                "name": "BUCKET_NAME",
-                "value": "fan-demo-created"
-            },
-            {
-                "name": "BUCKET_REGION",
-                "value": "ap-southeast-1"
-            },
-            {
-                "name": "ACCESS_KEY",
-                "value": "AKIA5QEAS4HBAJMY3VTA"
-            },
-            {
-                "name": "SECRET_ACCESS_KEY",
-                "value": "36NUBV50TSncFMPgFjJXtA2k7OEfqcvoTWuA6Spk"
-            },
-            {
                 "name": "JWT_KEY",
                 "value": "jwtSecret"
             },
@@ -58,7 +42,7 @@
         "memoryReservation": null,
         "volumesFrom": [],
         "stopTimeout": null,
-        "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest",
+        "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_client:latest",
         "startTimeout": null,
         "firelensConfiguration": null,
         "dependsOn": null,
@@ -75,12 +59,12 @@
         "dockerLabels": null,
         "systemControls": null,
         "privileged": null,
-        "name": "todo-app_todo"
+        "name": "todo-app_client"
     }],
     "placementConstraints": [],
     "memory": "512",
     "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
-    "family": "TODO_todo-app_-task-definition",
+    "family": "CLIENT_todo-app_task-definition",
     "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
     "networkMode": "awsvpc",
