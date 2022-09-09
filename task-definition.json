@@ -80,7 +80,7 @@
     "placementConstraints": [],
     "memory": "512",
     "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
-    "family": "todo-app-task-definition",
+    "family": "TODO_todo-app_-task-definition",
     "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
     "networkMode": "awsvpc",
