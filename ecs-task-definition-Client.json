@@ -68,7 +68,10 @@
     "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
     "networkMode": "awsvpc",
-    "runtimePlatform": null,
+    "runtimePlatform": {
+        "operatingSystemFamily": "LINUX",
+        "cpuArchitecture": null
+    },
     "cpu": "256",
     "inferenceAccelerators": null,
     "proxyConfiguration": null,
