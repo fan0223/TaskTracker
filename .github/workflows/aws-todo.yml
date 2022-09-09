@@ -99,4 +99,4 @@ jobs:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: todo-app_TODO
           cluster: todo-app-cluster
-          wait-for-service-stability: false
+          wait-for-service-stability: true
