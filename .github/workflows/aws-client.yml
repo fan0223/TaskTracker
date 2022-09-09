@@ -35,14 +35,14 @@ on:
 
 env:
   AWS_REGION: ap-northeast-1 # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: todo-app_todo # set this to your Amazon ECR repository name
-  ECS_SERVICE: todo-app_TODO # set this to your Amazon ECS service name
+  ECR_REPOSITORY: todo-app_client # set this to your Amazon ECR repository name
+  ECS_SERVICE: todo-app_CLIENT # set this to your Amazon ECS service name
   ECS_CLUSTER: todo-app-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
     .aws/ecs-task-definition.json # set this to the path to your Amazon ECS task definition
     # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
-    todo-app_todo # set this to the name of the container in the
+    todo-app_client # set this to the name of the container in the
     # containerDefinitions section of your task definition
 
 permissions:
@@ -50,7 +50,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy-Todo
+    name: Deploy-Client
     runs-on: ubuntu-latest
     environment: production
 
@@ -73,30 +73,30 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: todo-app_todo
+          ECR_REPOSITORY: todo-app_client
           IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          cd todo
-          docker build -t todo-app_todo .
-          docker tag todo-app_todo:latest 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest
-          docker push 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest
-          echo "::set-output name=image::927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest"
+          cd client
+          docker build -t todo-app_client .
+          docker tag todo-app_client:latest 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_client:latest
+          docker push 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_client:latest
+          echo "::set-output name=image::927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_client:latest"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ecs-task-definition-Todo.json
-          container-name: todo-app_todo
+          task-definition: ecs-task-definition-Client.json
+          container-name: todo-app_client
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: todo-app_TODO
+          service: todo-app_CLIENT
           cluster: todo-app-cluster
           wait-for-service-stability: true
