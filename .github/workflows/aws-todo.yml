@@ -89,7 +89,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ecs-task-definition.json
+          task-definition: ecs-task-definition-Todo.json
           container-name: todo-app_todo
           image: ${{ steps.build-image.outputs.image }}
 
