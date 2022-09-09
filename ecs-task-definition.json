@@ -1,19 +1,44 @@
 {
-    "family": "fan-todo-app",
+    "family": "TODO_todo-app_-task-definition",
     "executionRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "containerDefinitions": [{
         "name": "fan-todo-app",
-        "image": "927982608834.dkr.ecr.ap-southeast-1.amazonaws.com/fan-todo-app:latest",
+        "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest",
         "portMappings": [{
             "containerPort": 3000,
             "hostPort": 3000,
             "protocol": "tcp"
         }],
+        "environment": [{
+                "name": "BUCKET_NAME",
+                "value": "fan-demo-created"
+            },
+            {
+                "name": "BUCKET_REGION",
+                "value": "ap-southeast-1"
+            },
+            {
+                "name": "ACCESS_KEY",
+                "value": "AKIA5QEAS4HBAJMY3VTA"
+            },
+            {
+                "name": "SECRET_ACCESS_KEY",
+                "value": "36NUBV50TSncFMPgFjJXtA2k7OEfqcvoTWuA6Spk"
+            },
+            {
+                "name": "JWT_KEY",
+                "value": "jwtSecret"
+            },
+            {
+                "name": "MONGO_URI",
+                "value": "mongodb://fan0223:louie86515@todo-app-tododb.cluster-ca5k20hkwkjg.ap-northeast-1.docdb.amazonaws.com:27017/?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+            }
+        ],
         "essential": true
     }],
     "requiresCompatibilities": ["FARGATE"],
-    "cpu": "512",
-    "memory": "1024",
+    "cpu": "256",
+    "memory": "512",
     "taskRoleArn": "arn:aws:iam::927982608834:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
 }
