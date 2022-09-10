@@ -1,27 +1,15 @@
 {
-    "ipcMode": null,
+    "family": "TODO_todo-app_task-definition",
     "executionRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
     "containerDefinitions": [{
-        "dnsSearchDomains": null,
-        "environmentFiles": null,
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "secretOptions": null,
-            "options": {
-                "awslogs-group": "/ecs/CLIENT_todo-app_task-definition",
-                "awslogs-region": "ap-northeast-1",
-                "awslogs-stream-prefix": "ecs"
-            }
-        },
-        "entryPoint": null,
+        "name": "todo-app_todo",
+        "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest",
         "portMappings": [{
+            "containerPort": 3000,
             "hostPort": 3000,
-            "protocol": "tcp",
-            "containerPort": 3000
+            "protocol": "tcp"
         }],
-        "command": null,
-        "linuxParameters": null,
-        "cpu": 0,
         "environment": [{
                 "name": "BUCKET_NAME",
                 "value": "fan-demo-created"
@@ -47,49 +35,10 @@
                 "value": "mongodb://fan0223:louie86515@todo-app-tododb.cluster-ca5k20hkwkjg.ap-northeast-1.docdb.amazonaws.com:27017/?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
             }
         ],
-        "resourceRequirements": null,
-        "ulimits": null,
-        "dnsServers": null,
-        "mountPoints": [],
-        "workingDirectory": null,
-        "secrets": null,
-        "dockerSecurityOptions": null,
-        "memory": null,
-        "memoryReservation": null,
-        "volumesFrom": [],
-        "stopTimeout": null,
-        "image": "927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_todo:latest",
-        "startTimeout": null,
-        "firelensConfiguration": null,
-        "dependsOn": null,
-        "disableNetworking": null,
-        "interactive": null,
-        "healthCheck": null,
-        "essential": true,
-        "links": null,
-        "hostname": null,
-        "extraHosts": null,
-        "pseudoTerminal": null,
-        "user": null,
-        "readonlyRootFilesystem": null,
-        "dockerLabels": null,
-        "systemControls": null,
-        "privileged": null,
-        "name": "todo-app_todo"
+        "essential": true
     }],
-    "placementConstraints": [],
-    "memory": "512",
-    "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
-    "family": "TODO_todo-app_task-definition",
-    "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
-    "networkMode": "awsvpc",
-    "runtimePlatform": {
-        "operatingSystemFamily": "LINUX",
-        "cpuArchitecture": null
-    },
     "cpu": "256",
-    "inferenceAccelerators": null,
-    "proxyConfiguration": null,
-    "volumes": []
+    "memory": "512",
+    "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole"
 }
