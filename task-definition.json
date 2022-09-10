@@ -8,7 +8,7 @@
             "logDriver": "awslogs",
             "secretOptions": null,
             "options": {
-                "awslogs-group": "/ecs/CLIENT_todo-app_task-definition",
+                "awslogs-group": "/ecs/TODO_todo-app_task-definition",
                 "awslogs-region": "ap-northeast-1",
                 "awslogs-stream-prefix": "ecs"
             }
@@ -22,31 +22,7 @@
         "command": null,
         "linuxParameters": null,
         "cpu": 0,
-        "environment": [{
-                "name": "BUCKET_NAME",
-                "value": "fan-demo-created"
-            },
-            {
-                "name": "BUCKET_REGION",
-                "value": "ap-southeast-1"
-            },
-            {
-                "name": "ACCESS_KEY",
-                "value": "AKIA5QEAS4HBAJMY3VTA"
-            },
-            {
-                "name": "SECRET_ACCESS_KEY",
-                "value": "36NUBV50TSncFMPgFjJXtA2k7OEfqcvoTWuA6Spk"
-            },
-            {
-                "name": "JWT_KEY",
-                "value": "jwtSecret"
-            },
-            {
-                "name": "MONGO_URI",
-                "value": "mongodb://fan0223:louie86515@todo-app-tododb.cluster-ca5k20hkwkjg.ap-northeast-1.docdb.amazonaws.com:27017/?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
-            }
-        ],
+        "environment": [],
         "resourceRequirements": null,
         "ulimits": null,
         "dnsServers": null,
