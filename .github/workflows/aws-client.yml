@@ -30,13 +30,13 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'todo/**'
+    paths:
+      - 'client/**'
 
 env:
   AWS_REGION: ap-northeast-1 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: todo-app_client # set this to your Amazon ECR repository name
-  ECS_SERVICE: todo-app_CLIENT # set this to your Amazon ECS service name
+  ECS_SERVICE: todo-app_client # set this to your Amazon ECS service name
   ECS_CLUSTER: todo-app-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
     .aws/ecs-task-definition.json # set this to the path to your Amazon ECS task definition
@@ -97,6 +97,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: todo-app_CLIENT
+          service: todo-app_client
           cluster: todo-app-cluster
           wait-for-service-stability: true
