@@ -49,7 +49,7 @@ const start = async () => {
     //   }
     // )
     // consumer.run()
-    console.log('Connected to mongoDB..')
+    console.log('Connected to mongoDB.')
   } catch (error) {
     console.error(error)
   }
