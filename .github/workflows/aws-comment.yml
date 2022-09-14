@@ -79,7 +79,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          cd todo
+          cd comment
           docker build -t todo-app_comment .
           docker tag todo-app_comment:latest 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_comment:latest
           docker push 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_comment:latest

@@ -79,7 +79,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          cd todo
+          cd auth
           docker build -t todo-app_auth .
           docker tag todo-app_auth:latest 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_auth:latest
           docker push 927982608834.dkr.ecr.ap-northeast-1.amazonaws.com/todo-app_auth:latest

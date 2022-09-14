@@ -23,10 +23,10 @@ app.use(signinRouter)
 app.use(signupRouter)
 app.use(signoutRouter)
 
-// app.all('*', async (req, res) => {
-//   console.log('-------------TEST-----------------')
-//   throw new NotFoundError()
-// })
+app.all('*', async (req, res) => {
+  // console.log('-------------TEST-----------------')
+  throw new NotFoundError()
+})
 
 app.use(errorHandler)
 
