@@ -24,6 +24,7 @@ app.use(signupRouter)
 app.use(signoutRouter)
 
 app.all('*', async (req, res) => {
+  console.log('-------------TEST-----------------')
   throw new NotFoundError()
 })
 
