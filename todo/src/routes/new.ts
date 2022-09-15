@@ -17,13 +17,13 @@ import sharp from 'sharp';
 
 const router = express.Router()
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).single('image');
+const upload = multer({ storage: storage });
 const randomImageName = () => crypto.randomBytes(32).toString('hex');
 
 
 router.post('/api/todo',
   requireAuth,
-  // upload.single('image'),
+  upload.single('image'),
   [
     body('title')
       .not()
@@ -40,13 +40,6 @@ router.post('/api/todo',
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    upload(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        console.log(err)
-      } else if (err) {
-        console.log(err)
-      }
-    })
     const { title, content } = req.body
 
     if (!req.file) {
