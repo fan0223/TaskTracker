@@ -36,7 +36,7 @@ const start = async () => {
     new TodoDeletedConsumer().listen()
     new CommentCreatedConsumer().listen()
     new CommentDeletedConsumer().listen()
-    console.log('Connected to mongoDB')
+    console.log('Connected to mongoDB.')
   } catch (error) {
     console.error(error)
   }

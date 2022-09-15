@@ -64,8 +64,6 @@
     "placementConstraints": [],
     "memory": "512",
     "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
-    "compatibilities": ["EC2", "FARGATE"],
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:927982608834:task-definition/QUERY_todo-app_task-definition:1",
     "family": "QUERY_todo-app_task-definition",
     "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
