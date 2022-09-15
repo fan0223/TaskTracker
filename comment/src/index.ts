@@ -21,6 +21,7 @@ const start = async () => {
 
 
     await mongoose.connect(process.env.MONGO_URI, {
+      tlsCAFile: `${__dirname}/certs/rds-combined-ca-bundle.pem`,
       serverSelectionTimeoutMS: 50000
     })
 

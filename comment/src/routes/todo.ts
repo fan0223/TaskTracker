@@ -3,7 +3,7 @@ import { Todo } from '../models/todo'
 
 const router = express()
 
-router.get('/api/todo/comment',
+router.get('/api/todo/testurl/comment/testurl',
   async (req: Request, res: Response) => {
     const todo = await Todo.find({})
     res.send(todo)
