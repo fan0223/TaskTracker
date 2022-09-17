@@ -36,13 +36,13 @@ const start = async () => {
     new TodoDeletedConsumer().listen()
     new CommentCreatedConsumer().listen()
     new CommentDeletedConsumer().listen()
-    console.log('Connected to mongoDB.')
+    console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)
   }
 
   app.listen(3000, () => {
-    console.log('Listening on port 3000')
+    console.log('Listening on port 3000.')
   })
 }
 
