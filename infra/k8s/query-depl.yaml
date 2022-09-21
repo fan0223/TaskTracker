@@ -18,11 +18,10 @@ spec:
           env:
             - name: MONGO_URI
               value: 'mongodb://query-mongo-srv:27017/query'
+            - name: NODE_ENV
+              value: 'development'
             - name: JWT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_KEY
+              value: 'jwtSecret'
 ---
 apiVersion: v1
 kind: Service

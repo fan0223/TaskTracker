@@ -15,6 +15,9 @@ spec:
       containers:
         - name: client
           image: fan0223/client
+          env:
+            - name: NODE_ENV
+              value: 'development'
 
 ---
 apiVersion: v1
