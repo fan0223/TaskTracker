@@ -26,7 +26,8 @@ export const Config: IConfig = {
       // host: 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
       host: process.env.NODE_ENV == 'development'
         ? 'redis-srv'
-        : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
+        // : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
+        : 'todo-app-redis.kdo2wk.ng.0001.apne1.cache.amazonaws.com',
       port: 6379
     },
   },
