@@ -19,20 +19,25 @@ const start = async () => {
   }
 
   try {
+    QueueManager.createInstance(Config, (err, queueManager) => {
+      if (err) {
+        console.log(err)
+      } else if (!queueManager) {
+        console.log('Expected an instance of QueueManager')
+      } else {
+        queueManager.queue.create("query-todoCreated", false, (err) => {
+          if (err) {
+            console.log(err)
+          }
+          console.log('queueManager created by:', "query-todoCreated")
+        });
+      }
+    })
     // redisMQ.createInstance(Config, todoCreatedQueueManager_Query)
     // redisMQ.createInstance(Config, todoCreatedQueueManager_Comment)
     // redisMQ.createInstance(Config, todoUpdatedQueueManager_Query)
     // redisMQ.createInstance(Config, todoDeletedQueueManager_Comment)
     // redisMQ.createInstance(Config, todoDeletedQueueManager_Query)
-    QueueManager.createInstance(Config, (err, queueManager) => {
-      if (err) console.log(err);
-      else queueManager!.queue.create("query-todoCreated", false, (err) => {
-        if (err) {
-          console.log(err)
-        }
-        console.log('queueManager created by:', "query-todoCreated")
-      });
-    })
 
     await mongoose.connect(process.env.MONGO_URI, {
       tlsCAFile: `${__dirname}/certs/rds-combined-ca-bundle.pem`,
