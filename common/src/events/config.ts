@@ -27,7 +27,7 @@ export const Config: IConfig = {
       host: process.env.NODE_ENV == 'development'
         ? 'redis-srv'
         : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
-      // port: 6379
+      port: 6379
 
     },
   },
