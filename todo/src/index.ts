@@ -26,7 +26,12 @@ const start = async () => {
     // redisMQ.createInstance(Config, todoDeletedQueueManager_Query)
     QueueManager.createInstance(Config, (err, queueManager) => {
       if (err) console.log(err);
-      else queueManager!.queue.create('test_queue', false, (err) => console.log(err));
+      else queueManager!.queue.create("query-todoCreated", false, (err) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log('queueManager created by:', "query-todoCreated")
+      });
     })
 
     await mongoose.connect(process.env.MONGO_URI, {
