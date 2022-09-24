@@ -1,7 +1,7 @@
 import { Subjects } from "./subjects";
 
-export interface Query_TodoUpdatedEvent {
-  subject: Subjects.Query_TodoUpdated,
+export interface TodoUpdatedEvent {
+  subject: Subjects.TodoUpdated,
   data: {
     id: string,
     title: string,
