@@ -3,8 +3,7 @@ import express, { Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { Todo } from '../models/todo'
 import { Comment } from '../models/comment'
-
-import { CommentDeletedProducerQuery } from '../events/producer/commentDeletedProducerQuery'
+import { commentDeletedPublisher } from '../events/publisher/commentDeletedPublisher'
 const router = express()
 
 router.delete('/api/todo/:todoId/comment/:commentId',
@@ -32,7 +31,7 @@ router.delete('/api/todo/:todoId/comment/:commentId',
     const deletedComment = await Comment.findByIdAndDelete(commentId)
 
 
-    await new CommentDeletedProducerQuery().produce({
+    new commentDeletedPublisher().publish({
       id: comment.id,
       todoId: todoId,
       userId: comment.userId,

@@ -3,8 +3,7 @@ import { Comment } from '../models/comment'
 import { Todo } from '../models/todo'
 import { NotFoundError, requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
-import { CommentCreatedProducerQuery } from '../events/producer/commentCreatedProducerQuery'
-
+import { commentCreatedPublisher } from '../events/publisher/commentCreatedPublisher'
 const router = express()
 
 router.post('/api/todo/:todoId/comment',
@@ -34,7 +33,7 @@ router.post('/api/todo/:todoId/comment',
     })
     await comment.save()
 
-    await new CommentCreatedProducerQuery().produce({
+    new commentCreatedPublisher().publish({
       id: comment.id,
       todoId: comment.todoId,
       userId: comment.userId,

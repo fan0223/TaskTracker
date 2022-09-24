@@ -4,8 +4,7 @@ import express, { Response, Request } from 'express'
 import { Todo } from '../models/todo'
 import { BadRequestError, NotFoundError, requireAuth, validateRequest } from '@fan-todo/common'
 import { body } from 'express-validator'
-import { TodoCreatedProducerQuery } from '../events/producer/todoCreatedProducerQuery'
-import { TodoCreatedProducerComment } from '../events/producer/todoCreatedProducerComment'
+import { todoCreatedPublisher } from '../events/publisher/todoCreatedPublisher';
 import { s3Client } from '../events/s3-client';
 
 import multer from 'multer';
@@ -87,9 +86,7 @@ router.post('/api/todo',
 
     await todo.save()
 
-
-    // Message Queue produce to Query.
-    new TodoCreatedProducerQuery().produce({
+    new todoCreatedPublisher().publish({
       id: todo.id,
       title: todo.title,
       content: todo.content,
@@ -98,16 +95,6 @@ router.post('/api/todo',
       createdAt: todo.createAt,
       imageName: todo.imageName,
       imageUrl: todo.imageUrl
-    })
-
-    // Message Queue produce to Comment.
-    new TodoCreatedProducerComment().produce({
-      id: todo.id,
-      title: todo.title,
-      content: todo.content,
-      userId: todo.userId,
-      userEmail: todo.userEmail,
-      createdAt: todo.createAt
     })
 
     res.status(201).send(todo)

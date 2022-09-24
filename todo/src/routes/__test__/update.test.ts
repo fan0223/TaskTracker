@@ -2,7 +2,7 @@ import { async } from 'redis-smq-common'
 import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from '../../app'
-import { TodoUpdatedProducerQuery } from '../../events/producer/todoUpdatedProducerQuery'
+import { todoUpdatedPublisher } from '../../events/publisher/todoUpdatedPublisher'
 
 
 it('return 404 if the provide id dose not exist', async () => {
@@ -88,5 +88,5 @@ it('return 200 OK. updates the todo provided valid input', async () => {
     .expect(200)
   expect(updatedTodo.body.title).toEqual(updateTitle)
   expect(updatedTodo.body.content).toEqual(updateContent)
-  expect(TodoUpdatedProducerQuery).toHaveBeenCalled()
+  expect(todoUpdatedPublisher).toHaveBeenCalled()
 })

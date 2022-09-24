@@ -3,7 +3,8 @@ import { app } from '../../app'
 import mongoose from 'mongoose'
 import { Todo } from '../../models/todo'
 import { Comment } from '../../models/comment'
-import { CommentCreatedProducerQuery } from '../../events/producer/commentCreatedProducerQuery'
+import { commentCreatedPublisher } from '../../events/publisher/commentCreatedPublisher'
+
 
 it('Return 201 created if provided valid paramster', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()
@@ -19,7 +20,7 @@ it('Return 201 created if provided valid paramster', async () => {
       content: 'testContent'
     })
     .expect(201)
-  expect(CommentCreatedProducerQuery).toHaveBeenCalled()
+  expect(commentCreatedPublisher).toHaveBeenCalled()
   const comment = await Comment.find()
   expect(comment.length).toEqual(1)
   expect(response.body.content).toEqual('testContent')

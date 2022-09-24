@@ -1,6 +1,6 @@
 import express, { Response, Request } from 'express'
 import { validateRequest, requireAuth, NotFoundError, NotAuthorizedError } from '@fan-todo/common'
-import { TodoUpdatedProducerQuery } from '../events/producer/todoUpdatedProducerQuery'
+import { todoUpdatedPublisher } from '../events/publisher/todoUpdatedPublisher'
 import { Todo } from '../models/todo'
 import { body } from 'express-validator'
 const router = express.Router()
@@ -33,12 +33,12 @@ router.put('/api/todo/:id',
     })
     await todo.save()
 
-
-    await new TodoUpdatedProducerQuery().produce({
+    new todoUpdatedPublisher().publish({
       id: todo.id,
       title: todo.title,
       content: todo.content
     })
+
     res.send(todo)
   })
 

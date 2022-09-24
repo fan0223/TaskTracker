@@ -6,7 +6,9 @@
     "scripts": {
         "init": "ts-node-dev --rs --notify false src/index.ts",
         "sub": "ts-node-dev --rs --notify false src/ioredis-sub.ts",
+        "sub2": "ts-node-dev --rs --notify false src/base-subscriber.ts",
         "pub": "ts-node-dev --rs --notify false src/ioredis-pub.ts",
+        "pub2": "ts-node-dev --rs --notify false src/base-publish.ts",
         "p": "ts-node-dev --rs --notify false src/smq-producer.ts",
         "c": "ts-node-dev --rs --notify false src/smq-comsumer.ts"
     },
@@ -14,6 +16,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@fan-todo/common": "^1.0.58",
         "@types/express": "^4.17.13",
         "@types/node": "^18.0.3",
         "express": "^4.18.1",

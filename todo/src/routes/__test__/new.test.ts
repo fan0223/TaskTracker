@@ -1,8 +1,7 @@
 import request from 'supertest'
 import { app } from '../../app'
 import { Todo } from '../../models/todo'
-import { TodoCreatedProducerQuery } from '../../events/producer/todoCreatedProducerQuery'
-import { TodoCreatedProducerComment } from '../../events/producer/todoCreatedProducerComment'
+import { todoCreatedPublisher } from '../../events/publisher/todoCreatedPublisher'
 it('Return 201 created with valid inputs and Route handler listening to /api/todo for POST request', async () => {
   jest.setTimeout(30000);
   let todo = await Todo.find({})
@@ -64,7 +63,6 @@ it('produce an event', async () => {
     .attach('image', "C:/Users/louie/Desktop/images.jpg")
     .expect(201)
 
-  expect(TodoCreatedProducerQuery).toHaveBeenCalled()
-  expect(TodoCreatedProducerComment).toHaveBeenCalled()
+  expect(todoCreatedPublisher).toHaveBeenCalled()
 
 })

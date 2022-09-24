@@ -1,11 +1,9 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-import { Config, redisMQ } from '@fan-todo/common'
+// import { Config } from '@fan-todo/common'
 
-import { TodoCreatedConsumer } from './events/comsumer/todoCreatedConsumer'
-import { TodoDeletedConsumer } from './events/comsumer/todoDeletedConsumer'
-import { commentCreatedQueueManager_Query } from './events/queueManager/commentCreatedQueueManager-Query'
-import { commentDeletedQueueManager_Query } from './events/queueManager/commentDeletedQueueManager-Query'
+import { TodoCreatedSubscribe } from './events/subscriber.ts/todoCreatedSubscriber'
+import { TodoDeletedSubscribe } from './events/subscriber.ts/todoDeletedSubscriber'
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -16,9 +14,6 @@ const start = async () => {
   }
 
   try {
-    redisMQ.createInstance(Config, commentCreatedQueueManager_Query)
-    redisMQ.createInstance(Config, commentDeletedQueueManager_Query)
-
 
     await mongoose.connect(process.env.MONGO_URI, {
       tlsCAFile: `${__dirname}/certs/rds-combined-ca-bundle.pem`,
@@ -32,24 +27,9 @@ const start = async () => {
       await collection.deleteMany({})
     }
 
-    new TodoCreatedConsumer().listen()
-    new TodoDeletedConsumer().listen()
-    // const consumer = new Consumer(config)
-    // const messageHandler = (msg: Message, cb: ICallback<void>) => {
-    //   const payload = msg.getBody()
+    new TodoCreatedSubscribe().listen()
+    new TodoDeletedSubscribe().listen()
 
-    //   console.log('Message payload ', payload)
-    //   cb()
-    // }
-
-    // consumer.consume(
-    //   Subjects.TodoCreated,
-    //   messageHandler,
-    //   (err) => {
-    //     if (err) console.log(err)
-    //   }
-    // )
-    // consumer.run()
     console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)
