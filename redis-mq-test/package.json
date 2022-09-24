@@ -5,6 +5,8 @@
     "main": "index.js",
     "scripts": {
         "init": "ts-node-dev --rs --notify false src/index.ts",
+        "sub": "ts-node-dev --rs --notify false src/ioredis-sub.ts",
+        "pub": "ts-node-dev --rs --notify false src/ioredis-pub.ts",
         "p": "ts-node-dev --rs --notify false src/smq-producer.ts",
         "c": "ts-node-dev --rs --notify false src/smq-comsumer.ts"
     },
