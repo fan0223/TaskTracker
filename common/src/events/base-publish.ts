@@ -3,17 +3,7 @@ import Redis, { Redis as RedisType } from 'ioredis'
 
 interface Event {
   subject: Subjects,
-  data: {
-    id: string,
-    price: number
-  }
-}
-interface todoCreateEvent {
-  subject: Subjects,
-  data: {
-    id: string,
-    price: number
-  }
+  data: any
 }
 
 export abstract class CustomPublish<T extends Event> {
@@ -35,7 +25,4 @@ export abstract class CustomPublish<T extends Event> {
 
   }
 }
-// export class TodoPublish extends CustomPublish<todoCreateEvent>{
-//   channel: Subjects = Subjects.Todo
-// }
-// new TodoPublish().produce({ id: 'asd', price: 123 })
+

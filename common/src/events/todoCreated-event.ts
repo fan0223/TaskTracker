@@ -1,7 +1,7 @@
 import { Subjects } from "./subjects";
 
 export interface TodoCreatedEvent {
-  subject: TodoCreatedEvent,
+  subject: Subjects.TodoCreated,
   data: {
     id: string,
     title: string,

@@ -27,22 +27,3 @@ export abstract class CustomSubscribe<T extends Event> {
     this.redis.on('message', this.messageHandler)
   }
 }
-
-// interface todoCreateEvent {
-//   subject: Subjects,
-//   data: {
-//     id: string,
-//     price: number
-//   }
-// }
-
-// export class TodoCreatedSubscribe extends CustomSubscriber<todoCreateEvent>{
-//   channel: Subjects.Todo = Subjects.Todo;
-
-//   messageHandler: (channel: todoCreateEvent["subject"], message: string) => void = async (channel, message) => {
-
-//     const payload = JSON.parse(message) as todoCreateEvent['data']
-//     console.log(payload)
-//   }
-// }
-// new TodoCreatedSubscribe().listen()
