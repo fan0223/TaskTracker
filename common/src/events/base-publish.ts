@@ -14,7 +14,7 @@ export abstract class CustomPublish<T extends Event> {
     this.redis = new Redis()
   }
 
-  produce(message: T["data"]): void {
+  publish(message: T["data"]): void {
     this.redis.publish(this.channel, JSON.stringify(message), (err) => {
       if (err) {
         console.log(err)
