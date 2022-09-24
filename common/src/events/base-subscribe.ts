@@ -5,7 +5,7 @@ interface Event {
   subject: Subjects,
   data: any
 }
-export abstract class CustomSubscriber<T extends Event> {
+export abstract class CustomSubscribe<T extends Event> {
   abstract channel: T["subject"]
   abstract messageHandler: (channel: T["subject"], message: string) => void
   protected redis: RedisType;

@@ -19,4 +19,5 @@ export * from './events/todoDeleted-event'
 export * from './events/todoUpdated-event'
 
 export * from './events/config'
-
+export * from './events/base-publish'
+export * from './events/base-subscribe'
