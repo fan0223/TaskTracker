@@ -64,7 +64,6 @@
     "placementConstraints": [],
     "memory": "512",
     "taskRoleArn": "arn:aws:iam::927982608834:role/ecsTaskExecutionRole",
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:927982608834:task-definition/COMMENT_todo-app_task-definition:4",
     "family": "COMMENT_todo-app_task-definition",
     "pidMode": null,
     "requiresCompatibilities": ["FARGATE"],
