@@ -10,5 +10,7 @@ redis.subscribe(channel, (err) => {
   }
 })
 redis.on('message', (channel, message) => {
-  console.log(`Received ${message} from ${channel}`)
+  console.log(`Received ${message} from ${channel}.`)
+  console.log(typeof message)
+  console.log(JSON.parse(message))
 })

@@ -1,14 +1,5 @@
 import mongoose from 'mongoose'
 import { app } from './app'
-// import { Config, redisMQ } from '@fan-todo/common'
-// import { todoCreatedQueueManager_Query } from './events/queueManager/todoCreateQueueManager-Query'
-// import { todoCreatedQueueManager_Comment } from './events/queueManager/todoCreateQueueManager-Comment'
-// import { todoDeletedQueueManager_Comment } from './events/queueManager/todoDeletedQueueManager-Comment'
-// import { todoDeletedQueueManager_Query } from './events/queueManager/todoDeletedQueueManager-Query'
-// import { todoUpdatedQueueManager_Query } from './events/queueManager/todoUpdatedQueueManager-Query'
-
-import { QueueManager } from 'redis-smq';
-import { Config } from './config'
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -19,26 +10,6 @@ const start = async () => {
   }
 
   try {
-    QueueManager.createInstance(Config, (err, queueManager) => {
-      if (err) {
-        console.log(err)
-      } else if (!queueManager) {
-        console.log('Expected an instance of QueueManager')
-      } else {
-        queueManager.queue.create("query-todoCreated", false, (err) => {
-          if (err) {
-            console.log(err)
-          }
-          console.log('queueManager created by:', "query-todoCreated")
-        });
-      }
-    })
-    // redisMQ.createInstance(Config, todoCreatedQueueManager_Query)
-    // redisMQ.createInstance(Config, todoCreatedQueueManager_Comment)
-    // redisMQ.createInstance(Config, todoUpdatedQueueManager_Query)
-    // redisMQ.createInstance(Config, todoDeletedQueueManager_Comment)
-    // redisMQ.createInstance(Config, todoDeletedQueueManager_Query)
-
     await mongoose.connect(process.env.MONGO_URI, {
       tlsCAFile: `${__dirname}/certs/rds-combined-ca-bundle.pem`,
       serverSelectionTimeoutMS: 50000

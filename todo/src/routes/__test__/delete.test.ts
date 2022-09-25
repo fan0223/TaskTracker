@@ -1,9 +1,7 @@
 import request from 'supertest'
 import { app } from '../../app'
 import mongoose from 'mongoose'
-import { Todo } from '../../models/todo'
-import { TodoDeletedProducerQuery } from '../../events/producer/todoDeletedProducerQuery'
-import { TodoDeletedProducerComment } from '../../events/producer/todoDeletedProducerComment'
+import { todoDeletedPublisher } from '../../events/publisher/todoDeletedPublisher'
 
 it('return 404 not found if the provided id dose not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()
@@ -56,6 +54,5 @@ it('return 200 OK.Provided correct id and return deleted todo.', async () => {
   expect(deletedTodo.body.content).toEqual(content)
   expect(deletedTodo.body.id).toEqual(response.body.id)
 
-  expect(TodoDeletedProducerQuery).toHaveBeenCalled()
-  expect(TodoDeletedProducerComment).toHaveBeenCalled()
+  expect(todoDeletedPublisher).toHaveBeenCalled()
 })

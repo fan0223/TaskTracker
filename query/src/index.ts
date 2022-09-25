@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 import { app } from './app'
 
-import { TodoCreatedConsumer } from './events/consumer/todoCreatedConsumer'
-import { TodoDeletedConsumer } from './events/consumer/todoDeletedConsumer'
-import { TodoUpdatedConsumer } from './events/consumer/todoUpdatedConsumer'
-import { CommentCreatedConsumer } from './events/consumer/commentCreatedConsumer'
-import { CommentDeletedConsumer } from './events/consumer/commentDeletedConsumer'
+import { TodoCreatedSubscriber } from './events/subscriber/todoCreatedSubscriber'
+import { TodoDeletedSubscriber } from './events/subscriber/todoDeletedSubscriber'
+import { TodoUpdatedSubscriber } from './events/subscriber/todoUpdatedSubscriber'
+import { CommentCreatedSubscriber } from './events/subscriber/commentCreatedSubscriber'
+import { CommentDeletedSubscriber } from './events/subscriber/commentDeletedSubscriber'
 
 
 const start = async () => {
@@ -17,8 +17,6 @@ const start = async () => {
   }
 
   try {
-    // redisMQ.createInstance(Config, todoCreatedQueueManager)
-
     await mongoose.connect(process.env.MONGO_URI, {
       tlsCAFile: `${__dirname}/certs/rds-combined-ca-bundle.pem`,
       serverSelectionTimeoutMS: 50000
@@ -31,11 +29,11 @@ const start = async () => {
       await collection.deleteMany({})
     }
 
-    new TodoCreatedConsumer().listen()
-    new TodoUpdatedConsumer().listen()
-    new TodoDeletedConsumer().listen()
-    new CommentCreatedConsumer().listen()
-    new CommentDeletedConsumer().listen()
+    new TodoCreatedSubscriber().listen()
+    new TodoUpdatedSubscriber().listen()
+    new TodoDeletedSubscriber().listen()
+    new CommentCreatedSubscriber().listen()
+    new CommentDeletedSubscriber().listen()
     console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)

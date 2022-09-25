@@ -6,8 +6,9 @@ import jwt from 'jsonwebtoken'
 declare global {
   var signin: () => string[]
 }
-jest.mock('../events/producer/commentCreatedProducerQuery')
-jest.mock('../events/producer/commentDeletedProducerQuery')
+
+jest.mock('../events/publisher/commentCreatedPublisher')
+jest.mock('../events/publisher/commentDeletedPublisher')
 
 let mongo: MongoMemoryServer;
 beforeAll(async () => {

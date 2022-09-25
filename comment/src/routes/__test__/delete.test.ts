@@ -3,6 +3,7 @@ import request from 'supertest'
 import { app } from '../../app'
 import { Comment } from '../../models/comment'
 import { Todo } from '../../models/todo'
+import { commentDeletedPublisher } from '../../events/publisher/commentDeletedPublisher'
 
 it('Return 200 OK , success delete specify comment and return.', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()
@@ -29,7 +30,7 @@ it('Return 200 OK , success delete specify comment and return.', async () => {
   const deletedComment = await Comment.find()
   expect(deleteResponse.body.content).toEqual('testContent')
   expect(deletedComment.length).toEqual(0)
-
+  expect(commentDeletedPublisher).toHaveBeenCalled()
 })
 it('Return 404 not found, the todoId does not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString()

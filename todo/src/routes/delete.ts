@@ -11,8 +11,7 @@ const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
 import express, { Response, Request } from 'express'
 import { requireAuth, NotFoundError, NotAuthorizedError } from '@fan-todo/common'
-import { TodoDeletedProducerQuery } from '../events/producer/todoDeletedProducerQuery'
-import { TodoDeletedProducerComment } from '../events/producer/todoDeletedProducerComment'
+import { todoDeletedPublisher } from '../events/publisher/todoDeletedPublisher';
 import { Todo } from '../models/todo'
 import { s3Client } from '../events/s3-client'
 
@@ -51,15 +50,11 @@ router.delete('/api/todo/:id', requireAuth, async (req: Request, res: Response) 
     console.log("File not Found ERROR : " + error.code)
   }
 
+  new todoDeletedPublisher().publish({
+    id: deletedTodo.id,
+    userId: deletedTodo.userId
+  })
 
-  await new TodoDeletedProducerComment().produce({
-    id: deletedTodo.id,
-    userId: deletedTodo.userId
-  })
-  await new TodoDeletedProducerQuery().produce({
-    id: deletedTodo.id,
-    userId: deletedTodo.userId
-  })
   res.status(200).send(deletedTodo)
 })
 
