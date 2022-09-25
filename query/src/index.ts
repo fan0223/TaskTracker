@@ -34,7 +34,7 @@ const start = async () => {
     new TodoDeletedSubscriber().listen()
     new CommentCreatedSubscriber().listen()
     new CommentDeletedSubscriber().listen()
-    console.log('Connected to mongoDB')
+    console.log('Connected to mongoDB.')
   } catch (error) {
     console.error(error)
   }
