@@ -22,7 +22,7 @@ const start = async () => {
     }
 
 
-    console.log('Connected to mongoDB.')
+    console.log('Connected to mongoDB')
   } catch (error) {
     console.error(error)
   }
