@@ -15,7 +15,8 @@ export abstract class CustomPublish<T extends Event> {
       host: process.env.NODE_ENV == 'development'
         ? 'redis-srv'
         : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
-      port: 6379
+      port: 6379,
+      tls: {}
     })
   }
 
