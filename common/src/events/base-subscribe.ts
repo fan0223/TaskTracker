@@ -12,7 +12,9 @@ export abstract class CustomSubscribe<T extends Event> {
 
   constructor() {
     this.redis = new Redis({
-      host: 'redis-srv',
+      host: process.env.NODE_ENV == 'development'
+        ? 'redis-srv'
+        : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
       port: 6379
     })
   }
