@@ -11,7 +11,10 @@ export abstract class CustomPublish<T extends Event> {
   abstract channel: T["subject"]
 
   constructor() {
-    this.redis = new Redis()
+    this.redis = new Redis({
+      host: 'redis-srv',
+      port: 6379
+    })
   }
 
   publish(message: T["data"]): void {

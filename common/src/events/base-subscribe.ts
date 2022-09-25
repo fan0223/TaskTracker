@@ -11,7 +11,10 @@ export abstract class CustomSubscribe<T extends Event> {
   protected redis: RedisType;
 
   constructor() {
-    this.redis = new Redis()
+    this.redis = new Redis({
+      host: 'redis-srv',
+      port: 6379
+    })
   }
 
 
