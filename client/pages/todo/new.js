@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import useRequest from '../../hooks/use-request';
 import Router from 'next/router';
-import axios from 'axios';
 
 const NewTodo = () => {
   const [title, setTitle] = useState('');
