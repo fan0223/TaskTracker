@@ -6,8 +6,8 @@ export default ({ req }) => {
     // http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
     return axios.create({
       baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-      // 'http://todo-app-load-balancer-56769992.ap-northeast-1.elb.amazonaws.com',
+        // 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        'http://todo-app-load-balancer-1121518059.ap-northeast-1.elb.amazonaws.com',
       // baseURL: 'http://www.ticketing-app-fan.xyz/', use domain url when deployment online
       headers: req.headers,
     });
