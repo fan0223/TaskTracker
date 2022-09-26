@@ -16,7 +16,11 @@ const NewTodo = () => {
       content,
       image: file,
     },
-    onSuccess: () => Router.push('/'),
+    onSuccess: () =>
+      setTimeout(function () {
+        Router.push('/');
+      }, 1000),
+
     isMultipart: true,
   });
 
