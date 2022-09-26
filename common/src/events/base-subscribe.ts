@@ -11,13 +11,23 @@ export abstract class CustomSubscribe<T extends Event> {
   protected redis: RedisType;
 
   constructor() {
-    this.redis = new Redis({
-      host: process.env.NODE_ENV == 'development'
-        ? 'redis-srv'
-        : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
-      port: 6379,
-      tls: {}
-    })
+    process.env.NODE_ENV == 'development'
+      ? this.redis = new Redis({
+        host: 'redis-srv',
+        port: 6379,
+      })
+      : this.redis = new Redis({
+        host: 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
+        port: 6379,
+        tls: {}
+      })
+    // this.redis = new Redis({
+    //   host: process.env.NODE_ENV == 'development'
+    //     ? 'redis-srv'
+    //     : 'clustercfg.redis-server.kdo2wk.memorydb.ap-northeast-1.amazonaws.com',
+    //   port: 6379,
+    //   tls: {}
+    // })
   }
 
 
