@@ -19,13 +19,12 @@ const NewTodo = () => {
     onSuccess: () =>
       setTimeout(function () {
         Router.push('/');
-      }, 1000),
+      }, 500),
 
     isMultipart: true,
   });
 
   const onSubmit = async (event) => {
-    console.log(file);
     event.preventDefault();
     await doRequest();
   };
