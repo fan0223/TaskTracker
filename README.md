@@ -7,23 +7,57 @@
 
 ![infrastructure](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/infra.png)
 
+### Common module
+*** asd
+
 ### Auth service
 負責用戶Signin、Signup、Signout，使用JWT(Json Web Token)進行身分驗證並儲存至Cookie。
 
-| Method | Path                   | Description                                   |
-|--------|------------------------|-----------------------------------------------|
-| POST   | /api/users/signup      | signup and get new access token               |
-| POST   | /api/users/signin      | signin and refresh access token               |
-| POST   | /api/users/signout     | Logout to revoke access token                 |
-| GET    | /api/users/currentuser | get current access token user                 |
+| Method | Path                   | Description                          |
+|--------|------------------------|--------------------------------------|
+| POST   | /api/users/signup      | signup and get new access token      |
+| POST   | /api/users/signin      | signin and refresh access token      |
+| POST   | /api/users/signout     | Logout to revoke access token        |
+| GET    | /api/users/currentuser | get current access token user        |
 
 
 ### Todo service
+負責處理新增、修改、刪除，todo相片則上傳 AWS S3儲存。
+| Method | Path                   | Description               |
+|--------|------------------------|---------------------------|
+| GET    | /api/todo              | Get all todo              |
+| GET    | /api/todo/:todoId      | Get the specific id todo  |
+| POST   | /api/todo              | Create new todo           |
+| PUT    | /api/todo/:todoId      | Update the specific todo  |
+| DELETE | /api/todo/:todoId      | Delete the specific todo  |
 
-| Method | Path                   | Description                                   |
-|--------|------------------------|-----------------------------------------------|
-| GET    | /api/todo              | Get all todo                                  |
-| GET    | /api/todo/:todoId      | Get specify id todo                           |
-| POST   | /api/todo              | Create new todo                               |
-| PUT    | /api/todo/:todoId      | Update specify todo                           |
-| DELETE | /api/todo/:todoId      | Delete specify todo                           |
+### Comment service
+負責處理留言的新增和刪除。
+| Method | Path                                 | Description                                   |
+|--------|--------------------------------------|-----------------------------------------------|
+| GET    | /api/todo/:todoId/comment            | Get the specify todo                          |
+| POST   | /api/todo/:todoId/comment            | Get comment for the specific todo             |
+| DELETE | /api/todo/:todoId/comment/:commentId | Delete specific comment for the specific todo |
+
+### Query service
+負責接收Redis(Sub/Pub)事件，儲存所有資料。
+| Method | Path        | Description           |
+|--------|-------------|-----------------------|
+| GET    | /api/query  | Get the specify todo  |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
