@@ -14,14 +14,18 @@ const TodoEdit = ({ data }) => {
       title,
       content,
     },
-    onSuccess: () => Router.push('/'),
-    // onSuccess: (res) => console.log(res),
+    onSuccess: () =>
+      setTimeout(function () {
+        Router.push(`/api/todo/${data.id}`);
+      }, 500),
   });
   const { doRequest: deleteRequest, errors: deletError } = useRequest({
     url: `/api/todo/${data.id}`,
     method: 'delete',
-    onSuccess: () => Router.push('/'),
-    // onSuccess: (res) => console.log(res),
+    onSuccess: () =>
+      setTimeout(function () {
+        Router.push('/');
+      }, 500),
   });
 
   const onSubmit = async (event) => {
