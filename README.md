@@ -8,7 +8,13 @@
 ![infrastructure](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/infra.png)
 
 ### Common module
-*** asd
+上傳重複性高及指定規範。
+* Error
+  * 身分驗證錯誤、api body驗證錯誤、404 notFound。
+* Middleware
+  * current user、user authorize、error handler。
+* Event
+  * redis (sub/pub)、channel、data interface
 
 ### Auth service
 負責用戶Signin、Signup、Signout，使用JWT(Json Web Token)進行身分驗證並儲存至Cookie。
