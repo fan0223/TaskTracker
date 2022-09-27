@@ -16,7 +16,7 @@ spec:
         - name: client
           image: fan0223/client
           env:
-            - name: NODE_ENV
+            - name: APP_ENV
               value: 'development'
 
 ---

@@ -6,7 +6,7 @@ export default ({ req }) => {
     // http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
     return axios.create({
       baseURL:
-        process.env.NODE_ENV == 'development'
+        process.env.APP_ENV == 'development'
           ? 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local'
           : 'http://todo-app-load-balancer-1121518059.ap-northeast-1.elb.amazonaws.com',
 
