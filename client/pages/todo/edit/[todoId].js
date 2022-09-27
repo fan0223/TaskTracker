@@ -16,7 +16,7 @@ const TodoEdit = ({ data }) => {
     },
     onSuccess: () =>
       setTimeout(function () {
-        Router.push(`/api/todo/${data.id}`);
+        Router.push(`/todo/edit/${data.id}`);
       }, 500),
   });
   const { doRequest: deleteRequest, errors: deletError } = useRequest({
