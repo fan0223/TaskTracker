@@ -106,6 +106,7 @@ export async function getServerSideProps(context) {
       props: { data },
     };
   } catch (error) {
+    console.log(error);
     return {
       redirect: {
         permanent: false,
