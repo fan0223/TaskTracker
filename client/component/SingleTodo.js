@@ -13,7 +13,10 @@ const SingleTodo = ({ todo, currentUser }) => {
     body: {
       content,
     },
-    onSuccess: () => Router.push('/'),
+    onSuccess: () =>
+      setTimeout(function () {
+        Router.push('/');
+      }, 500),
   });
 
   const onSubmit = async (event) => {
