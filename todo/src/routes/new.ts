@@ -57,21 +57,23 @@ router.post('/api/todo',
     };
 
     // S3 upload
-    // const putObjectWrapper = (params: any) => {
-    //   return new Promise((resolve, reject) => {
-    //     s3Client.putObject(params, function (err, result) {
-    //       if (err) reject(err);
-    //       if (result) resolve(result);
-    //     });
-    //   })
-    // }
-    // await putObjectWrapper(putObjectParams);
-    s3Client.putObject(putObjectParams, function (err, data) {
-      if (err) {
-        console.log(err)
-      }
-      console.log(data)
-    });
+    const putObjectWrapper = (params: any) => {
+      return new Promise((resolve, reject) => {
+        s3Client.putObject(params, function (err, result) {
+          if (err) reject(err);
+          if (result) resolve(result);
+        });
+      })
+    }
+    await putObjectWrapper(putObjectParams)
+      .then(result => console.log(result))
+      .catch(err => console.log(err))
+    // s3Client.putObject(putObjectParams, function (err, data) {
+    //   if (err) {
+    //     console.log(err)
+    //   }
+    //   console.log(data)
+    // });
     // After s3 upload image, fetch image url, store in database.
     // https://fan-demo-created.s3.ap-southeast-1.amazonaws.com/af3c295f7aa45559f71f3b81290458919b04bc05b22fcf2272e4fb6ffe2a51bd
     // const getUrlParams = {

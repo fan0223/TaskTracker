@@ -18,7 +18,7 @@ const NewTodo = () => {
     onSuccess: () => Router.push('/'),
     // setTimeout(function () {
     //   Router.push('/');
-    // }, 500),
+    // }),
 
     isMultipart: true,
   });
