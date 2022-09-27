@@ -32,7 +32,10 @@ router.post('/api/users/signin', [
     const userJwt = jwt.sign({
       id: existingUser.id,
       email: existingUser.email
-    }, process.env.JWT_KEY!)
+    },
+      process.env.JWT_KEY!,
+      { expiresIn: 600 },
+    )
     // Store it on session object
     req.session = {
       jwt: userJwt

@@ -14,6 +14,7 @@ app.set('trust proxy', true)
 app.use(express.json())
 app.use(cookieSession({
   signed: false,
+  httpOnly: true,
   secure: false
   // secure: process.env.NODE_ENV !== 'test',
 }))
