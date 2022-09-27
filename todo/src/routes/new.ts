@@ -8,7 +8,6 @@ import { todoCreatedPublisher } from '../events/publisher/todoCreatedPublisher';
 import { s3Client } from '../events/s3-client';
 
 import multer from 'multer';
-import AWS from 'aws-sdk';
 import crypto from 'crypto';
 import sharp from 'sharp';
 
@@ -32,10 +31,6 @@ router.post('/api/todo',
       .not()
       .isEmpty()
       .withMessage('Content is required'),
-    // body('image')
-    //   .not()
-    //   .isEmpty()
-    //   .withMessage('Cover image is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -50,30 +45,41 @@ router.post('/api/todo',
       .toBuffer()
     const imageName = randomImageName();
 
+    if (!process.env.BUCKET_NAME) {
+      throw new NotFoundError()
+    }
     const putObjectParams = {
       Bucket: process.env.BUCKET_NAME,
       Key: imageName,
       Body: ImageBuffer,
       ContentType: req.file.mimetype,
+      ACL: 'public-read'
     };
 
     // S3 upload
-    const putObjectWrapper = (params: any) => {
-      return new Promise((resolve, reject) => {
-        s3Client.putObject(params, function (err, result) {
-          if (err) reject(err);
-          if (result) resolve(result);
-        });
-      })
-    }
-    await putObjectWrapper(putObjectParams);
+    // const putObjectWrapper = (params: any) => {
+    //   return new Promise((resolve, reject) => {
+    //     s3Client.putObject(params, function (err, result) {
+    //       if (err) reject(err);
+    //       if (result) resolve(result);
+    //     });
+    //   })
+    // }
+    // await putObjectWrapper(putObjectParams);
+    s3Client.putObject(putObjectParams, function (err, data) {
+      if (err) {
+        console.log(err)
+      }
+      console.log(data)
+    });
     // After s3 upload image, fetch image url, store in database.
-    const getUrlParams = {
-      Bucket: process.env.BUCKET_NAME,
-      Key: imageName
-    }
-    let imageUrl = s3Client.getSignedUrl('getObject', getUrlParams)
-
+    // https://fan-demo-created.s3.ap-southeast-1.amazonaws.com/af3c295f7aa45559f71f3b81290458919b04bc05b22fcf2272e4fb6ffe2a51bd
+    // const getUrlParams = {
+    //   Bucket: process.env.BUCKET_NAME,
+    //   Key: imageName
+    // }
+    // let imageUrl = s3Client.getSignedUrl('getObject', getUrlParams)
+    const imageUrl = `https://fan-demo-created.s3.ap-southeast-1.amazonaws.com/${imageName}`
     const todo = Todo.build({
       title,
       content,

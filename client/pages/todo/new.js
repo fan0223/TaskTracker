@@ -15,10 +15,10 @@ const NewTodo = () => {
       content,
       image: file,
     },
-    onSuccess: () =>
-      setTimeout(function () {
-        Router.push('/');
-      }, 500),
+    onSuccess: () => Router.push('/'),
+    // setTimeout(function () {
+    //   Router.push('/');
+    // }, 500),
 
     isMultipart: true,
   });
