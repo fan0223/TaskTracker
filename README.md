@@ -1,5 +1,8 @@
-# Post and Comment MicroService
-以貼文及留言功能來實現基礎的CRUD api  
-![image](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/services.jpg)
-![image](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/api.jpg)
-![image](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/messageQueue.jpg)
+# Microservice
+
+
+以微服務架構實現CRUD功能並部屬至AWS，使用 Node.js(Typescript)、Next.js、Docker、Kubernetes、MongoDB、Redis 和單元測試(Jest)，部屬使用 ECS、ELB、DocumentDB和MemoryDB。
+
+## Services
+
+![infrastructure](https://github.com/fan0223/todo-list-microservice/blob/main/drawIo/infra.png)
